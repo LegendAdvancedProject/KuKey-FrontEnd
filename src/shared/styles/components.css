@@ -1,13 +1,12 @@
-// 공통 css 스타일 선언
 @import "tailwindcss";
 
 @layer components {
   .form-wrapper {
-    @apply flex flex-col h-screen justify-center items-center;
+    @apply flex flex-col w-full h-screen justify-center items-center;
   }
 
   .form-input {
-    @apply w-[35rem] rounded-[1rem] border border-[#f2f2f2] px-[1.6rem] py-[1rem] text-[1.3rem];
+    @apply rounded-[1rem] border border-[#f2f2f2] px-[1.6rem] py-[1rem] text-[1.3rem];
   }
 
   .form-label {
@@ -15,7 +14,7 @@
   }
 
   .form-button {
-    @apply bg-green-400 w-[35rem] text-white rounded-[1rem] border border-[#f2f2f2] px-[1.6rem] py-[1rem] text-[1.3rem]
+    @apply bg-green-400  text-white rounded-[1rem] border border-[#f2f2f2] px-[1.6rem] py-[1rem] text-[1.3rem]
            hover:bg-green-500 disabled:bg-gray-400 disabled:cursor-not-allowed;
   }
 

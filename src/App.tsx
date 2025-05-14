@@ -1,7 +1,9 @@
+import AuthRequest from "./pages/auth-request/AuthRequest";
+
 function App() {
   return (
     <div>
-      안녕하세요
+      <AuthRequest />
     </div>
   );
 }
