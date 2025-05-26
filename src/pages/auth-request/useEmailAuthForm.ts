@@ -20,9 +20,12 @@ export const useEmailAuthForm = () => {
   } = useForm<{ authNumber: number }>({ mode: 'onChange' });
 
   const [showEnterAuth, setShowEnterAuth] = useState(false);
+  const [accessToken, setAccessToken] = useState('');
 
   const userEmail = watchEmail('userEmail');
   const authNumber = watchAuth('authNumber');
+
+  
 
   // 이메일 제출 처리
   const onSubmitEmail: SubmitHandler<{ userEmail: string }> = async (data) => {
