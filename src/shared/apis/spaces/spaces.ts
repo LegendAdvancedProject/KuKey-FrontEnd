@@ -16,5 +16,5 @@ export type FetchSpaceOpenStatusResponse = {
 
 export const fetchSpaceOpenStatus = async () => {
   const response = await apiClient.get(API.SPACES.FETCH_SPACE_OPEN_STATUS);
-  return response.data;
+  return response.data.data;
 };

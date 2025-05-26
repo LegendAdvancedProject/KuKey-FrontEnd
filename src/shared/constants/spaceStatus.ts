@@ -13,4 +13,5 @@ export const REQUEST_OR_RESERVATION_STATUS = {
   ING: 'ING',
 } as const;
 
-export type RequestOrReservationStatus = typeof REQUEST_OR_RESERVATION_STATUS;
+export type RequestOrReservationStatus =
+  (typeof REQUEST_OR_RESERVATION_STATUS)[keyof typeof REQUEST_OR_RESERVATION_STATUS];
