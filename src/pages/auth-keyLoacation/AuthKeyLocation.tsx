@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 const KeyLocationPage = () => {
   const navigate = useNavigate();
 
+  // 버튼 클릭 핸들러
+  const handleClick = (label: string) => {
+    console.log(`${label} 클릭!`);
+  };
+
   return (
     <div className="flex flex-col items-center space-y-6 px-4 py-6 text-sm">
       {/* 건물 버튼 */}
@@ -11,6 +16,7 @@ const KeyLocationPage = () => {
           <button
             key={name}
             className="rounded border border-green-800 px-4 py-1 font-semibold text-green-800"
+            onClick={() => handleClick(name)}
           >
             {name}
           </button>
@@ -31,9 +37,11 @@ const KeyLocationPage = () => {
       </div>
 
       {/* 기록 추가 버튼 */}
-      <button className="rounded border px-4 py-1 text-sm" onClick={() => navigate('/register')}>
-        기록 추가
-      </button>
+      <div className="flex w-full justify-end pr-1">
+        <button className="rounded border px-4 py-1 text-sm" onClick={() => navigate('/register')}>
+          기록 추가
+        </button>
+      </div>
 
       {/* 하단 메뉴 버튼 */}
       <div className="flex w-full justify-between space-x-2 pt-4">
@@ -41,6 +49,7 @@ const KeyLocationPage = () => {
           <button
             key={label}
             className="w-full rounded border border-green-800 py-1 font-semibold text-green-800"
+            onClick={() => handleClick(label)}
           >
             {label}
           </button>
