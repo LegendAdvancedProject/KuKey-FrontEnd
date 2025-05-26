@@ -7,10 +7,8 @@ type SpaceStatusProps = {
 };
 
 const SpaceStatus = ({ spaceName, lockStatus, spaceId }: SpaceStatusProps) => {
-  // const handleClick = () => {
-  //   console.log('개방요청하기 버튼클릭!');
-  // };
 
+  
   return (
     // <div className="flex h-[155px] w-[155px] flex-col items-center rounded-[10px] border border-red-200 bg-red-50 p-[15px] shadow-md">
     <div className="flex w-full items-center justify-between rounded-[10px] border border-gray-200 px-[15px] py-[10px] shadow-[7px]">

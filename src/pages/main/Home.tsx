@@ -1,10 +1,10 @@
 // 개방조회 탭
-import React from 'react';
-import RoomStatus from './components/SpaceStatus';
 import Building from './components/Building';
 import SpaceStatus from './components/SpaceStatus';
 
 const Home = () => {
+  
+
   return (
     <div className="flex justify-center">
       {/* 헤더 */}
