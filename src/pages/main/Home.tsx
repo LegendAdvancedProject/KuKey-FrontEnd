@@ -9,7 +9,14 @@ const Home = () => {
       {/* 헤더 */}
 
       <div className="mt-[10px] flex w-[370px] flex-col gap-[20px]">
-        {/* 새천년관 */}
+        <div>
+          <Building buildingName="공학관" />
+          <div className="mt-[10px] flex w-full flex-col gap-[10px]">
+            <RoomStatus roomName="과방1" lockStatus="잠금"></RoomStatus>
+            <RoomStatus roomName="과방2" lockStatus="잠금"></RoomStatus>
+          </div>
+        </div>
+
         <div>
           <Building buildingName="신공학관" />
           <div className="mt-[10px] flex w-full flex-col gap-[10px]">
@@ -22,14 +29,6 @@ const Home = () => {
           <Building buildingName="새천년관" />
           <div className="mt-[10px] flex w-full flex-col gap-[10px]">
             <RoomStatus roomName="501호" lockStatus="잠금"></RoomStatus>
-          </div>
-        </div>
-
-        <div>
-          <Building buildingName="공학관" />
-          <div className="mt-[10px] flex w-full flex-col gap-[10px]">
-            <RoomStatus roomName="과방1" lockStatus="잠금"></RoomStatus>
-            <RoomStatus roomName="과방2" lockStatus="잠금"></RoomStatus>
           </div>
         </div>
       </div>

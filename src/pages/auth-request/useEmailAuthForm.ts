@@ -1,6 +1,8 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { requestAuthCode, verifyAuthCode } from '../../shared/apis/auth/auth';
+import { ACCESS_TOKEN } from '../../shared/constants/storageKey';
+import { requestSpaceOpen } from '../../shared/apis/open-request/openRequest';
 
 export const useEmailAuthForm = () => {
   // 이메일 입력 폼
@@ -25,18 +27,21 @@ export const useEmailAuthForm = () => {
   const userEmail = watchEmail('userEmail');
   const authNumber = watchAuth('authNumber');
 
-  
-
   // 이메일 제출 처리
   const onSubmitEmail: SubmitHandler<{ userEmail: string }> = async (data) => {
     console.log('이메일 제출 성공!', data);
     try {
       const response = await requestAuthCode(userEmail);
-      console.log(response);
-      if (!response.data.isVerified) {
-        setShowEnterAuth(true); // 인증번호 입력 필드 보여주기
+
+      if (response.data.isVerified) {
+        // accessToken 저장
+        localStorage.setItem(ACCESS_TOKEN, String(response.data.accessToken));
+
+        // 개방 요청
+        const result = await requestSpaceOpen(1);
+        console.log(result.data);
       } else {
-        // 인증정보 기억돼있으면 바로 개방요청 처리 가능
+        setShowEnterAuth(true); // 인증번호 입력 필드 보여주기
       }
     } catch {
       alert('인증번호 요청 오류가 발생했습니다.');

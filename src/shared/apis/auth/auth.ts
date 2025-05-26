@@ -1,5 +1,5 @@
 import apiClient from '../apiClient';
-import { API } from '../../constants/urls';
+import { API } from '../urls';
 
 export const requestAuthCode = async (userEmail: string) => {
   const requestBody = {

@@ -1,4 +1,5 @@
 import axios, { AxiosHeaders, AxiosResponse } from 'axios';
+import { ACCESS_TOKEN } from '../constants/storageKey';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -31,7 +32,7 @@ apiClient.interceptors.response.use(
 apiClient.interceptors.request.use(
   (config) => {
     console.log('request');
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }

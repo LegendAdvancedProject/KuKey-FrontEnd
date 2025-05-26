@@ -5,4 +5,7 @@ export const API = {
     REMEMBER_AUTH_INFO: 'auth/memory',
     ADMIN_LOGIN: 'auth/login',
   },
+  SPACE: {
+    REQUEST_SPACE_OPEN: (spaceId: number) => `/open-requests/${spaceId}`,
+  },
 };
