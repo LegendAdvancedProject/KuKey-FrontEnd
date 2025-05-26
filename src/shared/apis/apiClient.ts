@@ -1,4 +1,4 @@
-import axios, { AxiosHeaders, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { ACCESS_TOKEN } from '../constants/storageKey';
 
 const apiClient = axios.create({
@@ -9,10 +9,9 @@ const apiClient = axios.create({
   },
 });
 
-// interceptor accesstoken 동작 아직 확인 안해봄
-
 apiClient.interceptors.response.use(
-  (response: AxiosResponse) => { // 타입을 꼭 명시해야 함!(오류 발생 방지)
+  (response: AxiosResponse) => {
+    // 타입을 꼭 명시해야 함!(오류 발생 방지)
     console.log('response');
     // const headers = (response.headers as AxiosHeaders).toJSON() || {};
     // console.log(headers);

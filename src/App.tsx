@@ -1,13 +1,13 @@
-import AuthRequest from "./pages/auth-request/AuthRequest";
-import Home from './pages/main/\bHome';
-import RoomStatus from './pages/main/components/RoomStatus';
+import AuthRequest from './pages/auth-request/AuthRequest';
+import Home from './pages/main/Home';
+import RoomStatus from './pages/main/components/SpaceStatus';
 
 function App() {
   return (
     <div>
       {/* <RoomStatus roomName="501호" lockStatus="잠금" /> */}
-      <AuthRequest />
-      {/* <Home /> */}
+      {/* <AuthRequest /> */}
+      <Home />
     </div>
   );
 }
