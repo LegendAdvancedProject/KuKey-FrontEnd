@@ -1,6 +1,6 @@
-import AuthRequest from './pages/auth-request/AuthRequest';
+// import AuthRequest from './pages/auth-request/AuthRequest';
 import Home from './pages/main/Home';
-import RoomStatus from './pages/main/components/SpaceStatus';
+// import RoomStatus from './pages/main/components/SpaceStatus';
 
 function App() {
   return (
