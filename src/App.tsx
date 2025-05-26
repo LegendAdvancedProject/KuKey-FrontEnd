@@ -1,9 +1,9 @@
-import AuthRequest from "./pages/auth-request/AuthRequest";
+import Router from './shared/router/Router';
 
 function App() {
   return (
     <div>
-      <AuthRequest />
+      <Router />
     </div>
   );
 }
