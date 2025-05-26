@@ -16,7 +16,7 @@ type SpaceStatusProps = {
 const SpaceStatus = ({
   spaceName,
   openStatus,
-  spaceId,
+  // spaceId,
   requestOrReservedStatus,
 }: SpaceStatusProps) => {
   let buttonText = '';
@@ -58,10 +58,17 @@ const SpaceStatus = ({
         </button>
       </div>
 
+      {/* 공간이 LOCKED이고 개방 요청이 되지 않았을 때만 버튼 enable */}
       <button
         type="button"
         // buttonClass 적용 안되면 safelist에 등록하기
         className={`rounded-[6px] border border-[#f2f2f2] p-[10px] text-[15px] text-white ${buttonClass}`}
+        disabled={
+          !(
+            openStatus == OPEN_STATUS.LOCKED &&
+            requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
+          )
+        }
       >
         {buttonText}
       </button>

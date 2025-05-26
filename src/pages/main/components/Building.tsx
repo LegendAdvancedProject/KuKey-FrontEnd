@@ -3,7 +3,7 @@ type BuildingProps = {
 };
 
 const Building = ({ buildingName }: BuildingProps) => {
-  return <div className="flex gap-[10px] text-[22px] font-[700] mt-[20px]">{buildingName}</div>;
+  return <div className="mt-[20px] flex gap-[10px] text-[22px] font-[700]">{buildingName}</div>;
 };
 
 export default Building;

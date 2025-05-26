@@ -22,7 +22,7 @@ export const useEmailAuthForm = () => {
   } = useForm<{ authNumber: number }>({ mode: 'onChange' });
 
   const [showEnterAuth, setShowEnterAuth] = useState(false);
-  const [accessToken, setAccessToken] = useState('');
+  //   const [accessToken, setAccessToken] = useState('');
 
   const userEmail = watchEmail('userEmail');
   const authNumber = watchAuth('authNumber');
