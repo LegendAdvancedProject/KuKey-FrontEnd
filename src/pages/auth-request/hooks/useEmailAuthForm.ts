@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { requestAuthCode, verifyAuthCode } from '../../../shared/apis/auth/auth';
 import { ACCESS_TOKEN } from '../../../shared/constants/storageKey';
 import { requestSpaceOpen } from '../../../shared/apis/open-request/openRequest';
+import { useNavigate } from 'react-router';
 
 export const useEmailAuthForm = () => {
   // 이메일 입력 폼
@@ -62,7 +63,10 @@ export const useEmailAuthForm = () => {
     }
   };
 
-  const handleBack = () => setShowEnterAuth(false);
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return {
     // 이메일 관련
