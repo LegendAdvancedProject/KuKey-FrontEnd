@@ -6,6 +6,7 @@ type RoomStatusProps = {
 const RoomStatus = ({ roomName, lockStatus }: RoomStatusProps) => {
   const handleClick = () => {
     console.log('개방요청하기 버튼클릭!');
+    console.log('변경사항');
   };
 
   return (
