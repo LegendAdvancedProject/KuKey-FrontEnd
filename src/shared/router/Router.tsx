@@ -1,16 +1,26 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router';
 import KeyLocationPage from '../../pages/auth-keyLoacation/AuthKeyLocation';
 import KeyRegisterPage from '../../pages/auth-ketRegister/AuthKeyRegister';
+import Home from '../../pages/main/Home';
+import KonkukStudentAuth from '../../pages/auth-request/KonkukStudentAuth';
 
-const Router = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/location" element={<KeyLocationPage />} />
-        <Route path="/register" element={<KeyRegisterPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+  },
+  {
+    path: '/konkuk-student-auth',
+    element: <KonkukStudentAuth />,
+  },
+  {
+    path: '/location',
+    element: <KeyLocationPage />,
+  },
+  {
+    path: '/register',
+    element: <KeyRegisterPage />,
+  },
+]);
 
-export default Router;
+export default router;

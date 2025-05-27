@@ -1,8 +1,8 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
-import { requestAuthCode, verifyAuthCode } from '../../shared/apis/auth/auth';
-import { ACCESS_TOKEN } from '../../shared/constants/storageKey';
-import { requestSpaceOpen } from '../../shared/apis/open-request/openRequest';
+import { requestAuthCode, verifyAuthCode } from '../../../shared/apis/auth/auth';
+import { ACCESS_TOKEN } from '../../../shared/constants/storageKey';
+import { requestSpaceOpen } from '../../../shared/apis/open-request/openRequest';
 
 export const useEmailAuthForm = () => {
   // 이메일 입력 폼

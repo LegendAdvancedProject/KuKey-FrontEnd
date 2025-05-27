@@ -1,7 +1,7 @@
-import { useEmailAuthForm } from './useEmailAuthForm';
+import { useEmailAuthForm } from './hooks/useEmailAuthForm';
 import UserInput from '../../shared/components/UserInput';
 
-const AuthRequest = () => {
+const KonkukStudentAuth = () => {
   const {
     registerEmail,
     handleSubmitEmail,
@@ -88,4 +88,4 @@ const AuthRequest = () => {
   );
 };
 
-export default AuthRequest;
+export default KonkukStudentAuth;
