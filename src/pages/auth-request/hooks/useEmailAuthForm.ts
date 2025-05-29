@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
-import { requestAuthCode, verifyAuthCode } from '../../../shared/apis/auth/auth';
+import { requestAuthCode, saveAuthInfo, verifyAuthCode } from '../../../shared/apis/auth/auth';
 import { ACCESS_TOKEN } from '../../../shared/constants/storageKey';
 import { requestSpaceOpen } from '../../../shared/apis/open-request/openRequest';
 import { useLocation, useNavigate } from 'react-router';
@@ -58,13 +58,26 @@ export const useEmailAuthForm = () => {
     console.log('인증정보 확인 요청됨');
     try {
       const response = await verifyAuthCode(userEmail, authNumber);
-      if (response.code === 200) {
-        // 인증 성공, accessToken 저장 등 처리
-        // 인증 정보를 저장하시겠어요? 모달창 띄우기,
-        // 동의하면 localStorage에 accessToken 저장하고 개방 요청
-        // 동의안하면 바로 개방 요청
-      } else {
-        // 인증 실패
+      if (response.code === 200) { // 인증번호 요청 성공
+        if (confirm('인증정보를 저장하시겠어요?')) { // 인증정보 저장 O
+          const response = await saveAuthInfo(userEmail); // 인증번호 저장 요청
+          if (response.code === 200) { // 인증번호 저장 성공
+            // accessToken 저장 및 개방 요청
+            localStorage.setItem(ACCESS_TOKEN, String(response.data.accessToken));
+            const result = await requestSpaceOpen(spaceId);
+            console.log(result.data);
+          } else { // 인증번호 저장 실패
+            alert('인증정보 저장 실패');
+          }
+        } else { // 인증정보 저장 X
+          // 인증정보 저장 안하더라고 일단 localstorage에 accesstoken 저장은 함
+          // (이후 다른 요청에서, interceptor에서 request보낼 때 localStorage에서 가져옴)
+          localStorage.setItem(ACCESS_TOKEN, String(response.data.accessToken));
+          const result = await requestSpaceOpen(spaceId);
+          console.log(result.data);
+        }
+      } else { // 인증번호 요청 실패
+        alert('인증번호 요청에 실패했습니다.')
       }
     } catch {
       alert('인증정보 확인 오류가 발생했습니다.');
