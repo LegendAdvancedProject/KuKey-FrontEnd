@@ -3,9 +3,12 @@ import { useState } from 'react';
 import { requestAuthCode, verifyAuthCode } from '../../../shared/apis/auth/auth';
 import { ACCESS_TOKEN } from '../../../shared/constants/storageKey';
 import { requestSpaceOpen } from '../../../shared/apis/open-request/openRequest';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 export const useEmailAuthForm = () => {
+  const location = useLocation();
+  const spaceId = location.state?.spaceId;
+
   // 이메일 입력 폼
   const {
     register: registerEmail,
@@ -39,7 +42,7 @@ export const useEmailAuthForm = () => {
         localStorage.setItem(ACCESS_TOKEN, String(response.data.accessToken));
 
         // 개방 요청
-        const result = await requestSpaceOpen(1);
+        const result = await requestSpaceOpen(spaceId);
         console.log(result.data);
       } else {
         setShowEnterAuth(true); // 인증번호 입력 필드 보여주기
@@ -57,6 +60,11 @@ export const useEmailAuthForm = () => {
       const response = await verifyAuthCode(userEmail, authNumber);
       if (response.code === 200) {
         // 인증 성공, accessToken 저장 등 처리
+        // 인증 정보를 저장하시겠어요? 모달창 띄우기,
+        // 동의하면 localStorage에 accessToken 저장하고 개방 요청
+        // 동의안하면 바로 개방 요청
+      } else {
+        // 인증 실패
       }
     } catch {
       alert('인증정보 확인 오류가 발생했습니다.');

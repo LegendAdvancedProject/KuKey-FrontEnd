@@ -17,7 +17,7 @@ type SpaceStatusProps = {
 const SpaceStatus = ({
   spaceName,
   openStatus,
-  // spaceId,
+  spaceId,
   requestOrReservedStatus,
 }: SpaceStatusProps) => {
   let buttonText = '';
@@ -46,7 +46,7 @@ const SpaceStatus = ({
   const navigate = useNavigate();
 
   const handleSpaceButtonClick = () => {
-    navigate('/konkuk-student-auth');
+    navigate('/konkuk-student-auth', { state: { spaceId }});
   };
 
   return (
