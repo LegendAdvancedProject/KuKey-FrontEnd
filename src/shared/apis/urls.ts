@@ -9,7 +9,7 @@ export const API = {
     REQUEST_SPACE_OPEN: (spaceId: number) => `/open-requests/${spaceId}`,
   },
   SPACES: {
-    FETCH_SPACE_OPEN_STATUS: 'spaces/open',
+    FETCH_SPACE_OPEN_STATUS: '/spaces/open',
     FETCH_SPACE_RESERVATION_STATUS: '/spaces/reservation',
   },
 };
