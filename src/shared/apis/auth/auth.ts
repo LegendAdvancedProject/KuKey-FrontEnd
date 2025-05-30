@@ -19,3 +19,12 @@ export const verifyAuthCode = async (userEmail: string, code: number) => {
   const response = await apiClient.post(API.AUTH.VERIFY_AUTH_CODE, requestBody);
   return response.data;
 };
+
+export const saveAuthInfo = async (userEmail: string) => {
+  const requestBody = {
+    email: userEmail,
+  };
+
+  const response = await apiClient.post(API.AUTH.SAVE_AUTH_INFO, requestBody);
+  return response.data;
+};

@@ -5,6 +5,7 @@ import {
   REQUEST_OR_RESERVATION_STATUS,
   RequestOrReservationStatus,
 } from '../../../shared/constants/spaceStatus';
+import { useNavigate } from 'react-router';
 
 type SpaceStatusProps = {
   spaceName: string;
@@ -16,7 +17,7 @@ type SpaceStatusProps = {
 const SpaceStatus = ({
   spaceName,
   openStatus,
-  // spaceId,
+  spaceId,
   requestOrReservedStatus,
 }: SpaceStatusProps) => {
   let buttonText = '';
@@ -42,9 +43,15 @@ const SpaceStatus = ({
     buttonClass = 'bg-gray-400';
   }
 
+  const navigate = useNavigate();
+
+  const handleSpaceButtonClick = () => {
+    navigate('/konkuk-student-auth', { state: { spaceId }});
+  };
+
   return (
     <div
-      className={`flex w-full items-center justify-between rounded-[10px] border border-gray-200 px-[15px] py-[10px] shadow-[7px] ${openStatus == OPEN_STATUS.LOCKED ? 'bg-red-50' : 'bg-blue-50'}`}
+      className={`flex w-full items-center justify-between rounded-[10px] border border-gray-300 px-[15px] py-[10px] shadow-[7px] ${openStatus == OPEN_STATUS.LOCKED ? 'bg-red-50' : 'bg-blue-50'}`}
     >
       <div className="space-x-[10px]">
         <span className="text-[18px]">
@@ -69,6 +76,7 @@ const SpaceStatus = ({
             requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
           )
         }
+        onClick={handleSpaceButtonClick}
       >
         {buttonText}
       </button>

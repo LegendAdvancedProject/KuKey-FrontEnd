@@ -1,9 +1,9 @@
 export const API = {
   AUTH: {
     REQUEST_AUTH_CODE: '/auth/code',
-    VERIFY_AUTH_CODE: '/auth/verification',
-    REMEMBER_AUTH_INFO: '/auth/memory',
-    ADMIN_LOGIN: '/auth/login',
+    VERIFY_AUTH_CODE: 'auth/verification',
+    SAVE_AUTH_INFO: 'auth/memory',
+    ADMIN_LOGIN: 'auth/login',
   },
   OPEN_REQUEST: {
     REQUEST_SPACE_OPEN: (spaceId: number) => `/open-requests/${spaceId}`,
