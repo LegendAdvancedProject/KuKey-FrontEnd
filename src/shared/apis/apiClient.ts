@@ -24,9 +24,6 @@ apiClient.interceptors.response.use(
     // 하지만 자체 에러 핸들링 해야하는 경우를 처리하는 코드
     const { code } = response.data;
     if (code && code !== 200) {
-      // 이 Promise.reject()가 main.tsx의 mutations의 onError(error: unknown)의 error에 전달됨
-      // mutations의 onError 내부에서 이걸 as ErrorType으로 처리하므로, Promise.reject() 내부의 객체도
-      // ErrorType과 같은 형태로 만들어야 의도치 않은 오류가 발생하지 않음
       return Promise.reject({
         ...response.data,
       });

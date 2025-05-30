@@ -1,6 +1,7 @@
 import { ErrorType } from '../types/errorType';
 
 export const handleQueryError = async (error: ErrorType) => {
+  // 추후 오류에 따라 별도 로직 구현 필요
   switch (error.code) {
     case 400:
       alert(error.message);
