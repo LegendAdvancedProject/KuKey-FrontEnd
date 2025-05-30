@@ -5,6 +5,11 @@ import { useEmailAuthRequest } from './hooks/useEmailAuthRequest';
 import { useState } from 'react';
 
 const KonkukStudentAuth = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const spaceId = location.state?.spaceId;
+  const [showEnterAuth, setShowEnterAuth] = useState(false);
+
   const {
     registerEmail,
     handleSubmitEmail,
@@ -17,20 +22,14 @@ const KonkukStudentAuth = () => {
     authNumber,
   } = useEmailAuthForm();
 
-  const { requestAuth, verifyAuth } = useEmailAuthRequest();
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const spaceId = location.state?.spaceId;
-
-  const [showEnterAuth, setShowEnterAuth] = useState(false);
+  const { requestAuthCodeMutation, verifyAuthMutation } = useEmailAuthRequest();
 
   const onSubmitEmail = () => {
-    requestAuth(userEmail, setShowEnterAuth, spaceId);
+    requestAuthCodeMutation({ userEmail, spaceId, setShowEnterAuth });
   };
 
   const onSubmitAuth = () => {
-    verifyAuth(userEmail, authNumber, spaceId);
+    verifyAuthMutation({ userEmail, authNumber, spaceId, setShowEnterAuth });
   };
 
   return (
