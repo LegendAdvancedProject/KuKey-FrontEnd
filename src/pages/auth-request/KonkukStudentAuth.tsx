@@ -49,13 +49,13 @@ const KonkukStudentAuth = () => {
                 placeholder="건국대학교 이메일을 입력해주세요"
                 register={registerEmail}
                 error={errorsEmail.userEmail}
-                rules={{
-                  required: '이메일을 입력해주세요.',
-                  pattern: {
-                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                    message: '올바른 이메일 형식이 아닙니다.',
-                  },
-                }}
+                // rules={{
+                //   required: '이메일을 입력해주세요.',
+                //   pattern: {
+                //     value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                //     message: '올바른 이메일 형식이 아닙니다.',
+                //   },
+                // }}
                 width="24rem"
               />
               <button type="submit" className="form-button" disabled={!isValidEmail}>

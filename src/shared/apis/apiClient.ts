@@ -3,7 +3,6 @@ import { ACCESS_TOKEN } from '../constants/storageKey';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -12,25 +11,39 @@ const apiClient = axios.create({
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     // 타입을 꼭 명시해야 함!(오류 발생 방지)
-    console.log('response');
-    // const headers = (response.headers as AxiosHeaders).toJSON() || {};
-    // console.log(headers);
+    console.log('interceptor response');
+
+    // Authorization 헤더 처리
     const authHeader = response.headers['authorization'] || response.headers['Authorization'];
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const accessToken = authHeader.split(' ')[1];
       localStorage.setItem('accessToken', accessToken);
     }
+
+    // HTTP 레벨 에러 통과(status code가 200, 서버와의 통신은 성공함)
+    // 하지만 자체 에러 핸들링 해야하는 경우를 처리하는 코드
+    const { code, message } = response.data;
+    if (code && code !== 200) {
+      return Promise.reject({
+        isBusinessError: true, 
+        // 커스텀 속성(HTTP status는 200이지만 business logic 상 실패한 경우를 알려주기 위함)
+        code,
+        message,
+        response,
+      });
+    }
+
     return response;
   },
   (error) => {
     console.log('axios response interceptor 에러');
-    return Promise.reject(error);
+    return Promise.reject(error); // HTTP 레벨 에러 (4xx, 5xx 등)
   }
 );
 
 apiClient.interceptors.request.use(
   (config) => {
-    console.log('request');
+    console.log('interceptor request');
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
