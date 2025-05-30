@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { requestAuthCode, verifyAuthCode, saveAuthInfo } from '../../../shared/apis/auth/auth';
 import { requestSpaceOpen } from '../../../shared/apis/open-request/openRequest';
 import { ACCESS_TOKEN } from '../../../shared/constants/storageKey';
-import { handleAxiosError } from '../../../shared/utils/handleAxiosError';
 
 export const useEmailAuthRequest = () => {
   const queryClient = useQueryClient();
@@ -27,10 +26,10 @@ export const useEmailAuthRequest = () => {
       }
       queryClient.invalidateQueries({ queryKey: ['requestAuthCode'] });
     },
-    onError: (error) => {
-      console.log('인증번호 요청 오류 발생');
-      handleAxiosError(error);
-    },
+    // onError: (error) => {
+    //   console.log('인증번호 요청 오류 발생');
+    //   handleAxiosError(error);
+    // },
   });
 
   // 인증정보 저장
@@ -43,10 +42,6 @@ export const useEmailAuthRequest = () => {
       } else {
         alert('인증정보 저장 실패');
       }
-    },
-    onError: (error) => {
-      alert('인증정보 저장 오류');
-      handleAxiosError(error);
     },
   });
 
@@ -74,10 +69,6 @@ export const useEmailAuthRequest = () => {
         console.log('인증번호 확인 실패');
       }
     },
-    onError: (error) => {
-      console.log('인증번호 확인 오류');
-      handleAxiosError(error);
-    },
   });
 
   // 개방 요청
@@ -86,10 +77,6 @@ export const useEmailAuthRequest = () => {
     onSuccess: () => {
       console.log('개방요청 성공');
       queryClient.invalidateQueries({ queryKey: ['requestSpaceOpen'] });
-    },
-    onError: (error) => {
-      alert('개방요청 오류');
-      handleAxiosError(error);
     },
   });
 
