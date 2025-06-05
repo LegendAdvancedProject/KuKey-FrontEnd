@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { ACCESS_TOKEN } from '../constants/storageKey';
+import { USER_ACCESS_TOKEN } from '../constants/storageKey';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -7,6 +7,21 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+apiClient.interceptors.request.use(
+  (config) => {
+    console.log('interceptor request');
+    const token = localStorage.getItem(USER_ACCESS_TOKEN);
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    console.log('axios request interceptor 에러');
+    return Promise.reject(error);
+  }
+);
 
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
@@ -17,7 +32,7 @@ apiClient.interceptors.response.use(
     const authHeader = response.headers['authorization'] || response.headers['Authorization'];
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const accessToken = authHeader.split(' ')[1];
-      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem(USER_ACCESS_TOKEN, accessToken);
     }
 
     // HTTP 레벨 에러 통과(status code가 200, 서버와의 통신은 성공함)
@@ -34,21 +49,6 @@ apiClient.interceptors.response.use(
   (error) => {
     console.log('axios response interceptor 에러');
     return Promise.reject(error); // HTTP 레벨 에러 (4xx, 5xx 등)
-  }
-);
-
-apiClient.interceptors.request.use(
-  (config) => {
-    console.log('interceptor request');
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    console.log('axios request interceptor 에러');
-    return Promise.reject(error);
   }
 );
 
