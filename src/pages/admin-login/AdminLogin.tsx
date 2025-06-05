@@ -51,7 +51,7 @@ const AdminLogin = () => {
               />
             </div>
 
-            <button type="submit" className="form-button" disabled={!isValid}>
+            <button type="submit" className="form-button w-[100px]" disabled={!isValid}>
               로그인
             </button>
           </form>

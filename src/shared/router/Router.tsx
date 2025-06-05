@@ -4,6 +4,7 @@ import KeyRegisterPage from '../../pages/auth-ketRegister/AuthKeyRegister';
 import Home from '../../pages/main/Home';
 import KonkukStudentAuth from '../../pages/auth-request/KonkukStudentAuth';
 import AdminLogin from '../../pages/admin-login/AdminLogin';
+import AdminHome from '../../pages/admin-main/AdminHome';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/admin-login',
     element: <AdminLogin />
+  },
+  {
+    path: '/admin-home',
+    element: <AdminHome />
   }
 ]);
 
