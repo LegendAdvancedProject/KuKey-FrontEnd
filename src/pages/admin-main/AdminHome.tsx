@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
   fetchSpaceOpenStatus,
   FetchSpaceOpenStatusResponse,
-} from '../../shared/apis/spaces/spaces';
+} from '../../shared/apis/user/spaces/spaces';
 import Building from '../main/components/Building';
 import SpaceStatus from '../main/components/SpaceStatus';
 

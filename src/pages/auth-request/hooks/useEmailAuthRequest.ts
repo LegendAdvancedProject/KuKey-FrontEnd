@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { requestAuthCode, verifyAuthCode, saveAuthInfo } from '../../../shared/apis/auth/auth';
-import { requestSpaceOpen } from '../../../shared/apis/open-request/openRequest';
+import { requestAuthCode, verifyAuthCode, saveAuthInfo } from '../../../shared/apis/user/auth/auth';
+import { requestSpaceOpen } from '../../../shared/apis/user/open-request/openRequest';
 import { USER_ACCESS_TOKEN } from '../../../shared/constants/storageKey';
 
 export const useEmailAuthRequest = () => {

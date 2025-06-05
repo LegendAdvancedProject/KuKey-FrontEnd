@@ -1,5 +1,5 @@
-import apiClient from '../apiClient';
-import { API } from '../urls';
+import apiClient from '../../apiClient';
+import { API } from '../../urls';
 
 export const adminLogin = async (id: string, password: string) => {
   const requestBody = {
