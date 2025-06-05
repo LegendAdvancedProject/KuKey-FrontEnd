@@ -5,7 +5,6 @@ import {
   REQUEST_OR_RESERVATION_STATUS,
   RequestOrReservationStatus,
 } from '../../../shared/constants/spaceStatus';
-import { useNavigate } from 'react-router';
 
 type SpaceStatusProps = {
   spaceName: string;
@@ -43,11 +42,9 @@ const SpaceStatus = ({
     buttonClass = 'bg-gray-400';
   }
 
-  const navigate = useNavigate();
+  const handleOpenClick = () => {
 
-  const handleSpaceButtonClick = () => {
-    navigate('/konkuk-student-auth', { state: { spaceId } });
-  };
+  }
 
   return (
     <div
@@ -60,7 +57,7 @@ const SpaceStatus = ({
         <button
           type="button"
           className={`self-center text-[30px] font-[500] ${openStatus == OPEN_STATUS.LOCKED ? 'text-red-500' : 'text-blue-500'}`}
-          disabled={true}
+          onClick={handleOpenClick}
         >
           {openStatus == OPEN_STATUS.LOCKED ? '잠금' : '개방'}
         </button>
@@ -71,13 +68,7 @@ const SpaceStatus = ({
         type="button"
         // buttonClass 적용 안되면 safelist에 등록하기
         className={`rounded-[6px] border border-[#f2f2f2] p-[10px] text-[15px] text-white ${buttonClass}`}
-        disabled={
-          !(
-            openStatus == OPEN_STATUS.LOCKED &&
-            requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
-          )
-        }
-        onClick={handleSpaceButtonClick}
+        disabled={true}
       >
         {buttonText}
       </button>
