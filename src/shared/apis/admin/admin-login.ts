@@ -8,5 +8,5 @@ export const adminLogin = async (id: string, password: string) => {
   };
 
   const response = await apiClient.post(API.AUTH.ADMIN_LOGIN, requestBody);
-  return response;
+  return response.data;
 };

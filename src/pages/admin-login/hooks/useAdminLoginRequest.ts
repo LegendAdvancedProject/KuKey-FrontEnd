@@ -9,18 +9,11 @@ export const useAdminLoginRequest = () => {
     mutationFn: ({ id, password }: { id: string; password: string }) => {
       return adminLogin(id, password);
     },
-    onSuccess: (response) => {
-      if (response.data.code === 200) {
-        const authHeader = response.headers['authorization'] || response.headers['Authorization'];
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-          const accessToken = authHeader.split(' ')[1];
-          localStorage.setItem(ADMIN_ACCESS_TOKEN, accessToken);
-
+    onSuccess: (data) => {
+      if (data.code === 200) {
+        
+          localStorage.setItem(ADMIN_ACCESS_TOKEN, data.data.accessToken);
           queryClient.invalidateQueries({ queryKey: ['adminLogin'] });
-          alert('관리자 로그인 성공');
-        } else {
-          alert('관리자 토큰 등록 실패');
-        }
       } else {
         alert('관리자 토큰 등록 응답 오류');
       }

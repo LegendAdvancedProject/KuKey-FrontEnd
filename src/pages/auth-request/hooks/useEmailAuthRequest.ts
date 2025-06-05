@@ -32,19 +32,6 @@ export const useEmailAuthRequest = () => {
     // },
   });
 
-  // 인증정보 저장
-  const { mutate: saveAuthInfoMutation } = useMutation({
-    mutationFn: ({ userEmail }: { userEmail: string; spaceId: number }) => saveAuthInfo(userEmail),
-    onSuccess: (data, variables) => {
-      if (data.code === 200) {
-        localStorage.setItem(USER_ACCESS_TOKEN, String(data.data.accessToken));
-        requestSpaceOpenMutation(variables.spaceId);
-      } else {
-        alert('인증정보 저장 실패');
-      }
-    },
-  });
-
   // 인증번호 확인
   const { mutate: verifyAuthMutation } = useMutation({
     mutationFn: ({ userEmail, authNumber }: { userEmail: string; authNumber: number }) =>
@@ -67,6 +54,19 @@ export const useEmailAuthRequest = () => {
         }
       } else {
         console.log('인증번호 확인 실패');
+      }
+    },
+  });
+
+  // 인증정보 저장
+  const { mutate: saveAuthInfoMutation } = useMutation({
+    mutationFn: ({ userEmail }: { userEmail: string; spaceId: number }) => saveAuthInfo(userEmail),
+    onSuccess: (data, variables) => {
+      if (data.code === 200) {
+        localStorage.setItem(USER_ACCESS_TOKEN, String(data.data.accessToken));
+        requestSpaceOpenMutation(variables.spaceId);
+      } else {
+        alert('인증정보 저장 실패');
       }
     },
   });

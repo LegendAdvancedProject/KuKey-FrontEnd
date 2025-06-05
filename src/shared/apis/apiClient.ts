@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { USER_ACCESS_TOKEN } from '../constants/storageKey';
+import { getAuthToken } from '../utils/getAccessToken';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -8,10 +8,13 @@ const apiClient = axios.create({
   },
 });
 
+// 일단 하나의 axios 인스턴스에서 사용자, 관리자 요청을 보내도록 구현했지만
+// 관리자용 인스턴스, 사용자용 인스턴스를 따로 생성해서 요청 책임을 분리하는게 클린할 듯
 apiClient.interceptors.request.use(
   (config) => {
     console.log('interceptor request');
-    const token = localStorage.getItem(USER_ACCESS_TOKEN);
+
+    const token = getAuthToken(); // adminToken이 있으면 adminToken을 헤더에 넣어 요청을 보내고, 없으면 userToken을 넣어서 요청 보냄
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -24,16 +27,8 @@ apiClient.interceptors.request.use(
 );
 
 apiClient.interceptors.response.use(
-  (response: AxiosResponse) => {
-    // 타입을 꼭 명시해야 함!(오류 발생 방지)
+  (response: AxiosResponse) => { // 타입을 꼭 명시해야 함!(오류 발생 방지)
     console.log('interceptor response');
-
-    // Authorization 헤더 처리
-    const authHeader = response.headers['authorization'] || response.headers['Authorization'];
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-      const accessToken = authHeader.split(' ')[1];
-      localStorage.setItem(USER_ACCESS_TOKEN, accessToken);
-    }
 
     // HTTP 레벨 에러 통과(status code가 200, 서버와의 통신은 성공함)
     // 하지만 자체 에러 핸들링 해야하는 경우를 처리하는 코드
