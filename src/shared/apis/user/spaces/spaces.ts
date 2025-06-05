@@ -1,6 +1,6 @@
-import apiClient from '../apiClient';
-import { API } from '../urls';
-import { OpenStatus, RequestOrReservationStatus } from '../../constants/spaceStatus';
+import apiClient from '../../apiClient';
+import { API } from '../../urls';
+import { OpenStatus, RequestOrReservationStatus } from '../../../constants/spaceStatus';
 
 export type SpaceInfo = {
   spaceId: number;

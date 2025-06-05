@@ -5,7 +5,7 @@ import {
   REQUEST_OR_RESERVATION_STATUS,
   RequestOrReservationStatus,
 } from '../../../shared/constants/spaceStatus';
-import { useNavigate } from 'react-router';
+import { useAdminSpaceManage } from '../hooks/useAdminSpaceManage';
 
 type SpaceStatusProps = {
   spaceName: string;
@@ -27,26 +27,27 @@ const SpaceStatus = ({
     openStatus == OPEN_STATUS.LOCKED &&
     requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
   ) {
-    buttonText = '개방 요청하기';
-    buttonClass = 'bg-green-400';
+    buttonText = '잠금 상태';
+    buttonClass = 'bg-yellow-400';
   } else if (
     openStatus == OPEN_STATUS.OPEN &&
     requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
   ) {
-    buttonText = '이용 가능';
+    buttonText = '개방 완료';
     buttonClass = 'bg-blue-400';
   } else if (requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.REQUESTED) {
     buttonText = '개방 요청됨';
-    buttonClass = 'bg-yellow-400';
+    buttonClass = 'bg-green-400';
   } else if (requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.ING) {
     buttonText = '이용 중';
     buttonClass = 'bg-gray-400';
   }
 
-  const navigate = useNavigate();
+  const { openSpaceMutation } = useAdminSpaceManage();
 
-  const handleSpaceButtonClick = () => {
-    navigate('/konkuk-student-auth', { state: { spaceId } });
+  const handleOpenClick = () => {
+    openSpaceMutation(spaceId); // 개방 상태 변경 api
+    // querykey invalidate로 개방 상태 조회 api(currentSpaceStatus)도 자동 호출됨
   };
 
   return (
@@ -60,9 +61,9 @@ const SpaceStatus = ({
         <button
           type="button"
           className={`self-center text-[30px] font-[500] ${openStatus == OPEN_STATUS.LOCKED ? 'text-red-500' : 'text-blue-500'}`}
-          disabled={true}
+          onClick={handleOpenClick}
         >
-          {openStatus == OPEN_STATUS.LOCKED ? '잠금' : '개방'}
+          {openStatus == OPEN_STATUS.LOCKED ? '개방하기' : '잠그기'}
         </button>
       </div>
 
@@ -71,13 +72,7 @@ const SpaceStatus = ({
         type="button"
         // buttonClass 적용 안되면 safelist에 등록하기
         className={`rounded-[6px] border border-[#f2f2f2] p-[10px] text-[15px] text-white ${buttonClass}`}
-        disabled={
-          !(
-            openStatus == OPEN_STATUS.LOCKED &&
-            requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
-          )
-        }
-        onClick={handleSpaceButtonClick}
+        disabled={true}
       >
         {buttonText}
       </button>
