@@ -1,4 +1,4 @@
-import apiClient from '../apiClient';
+import apiClient from '../../apiClient';
 
 export interface KeyUploadRequest {
   buildingName: string;
@@ -8,8 +8,13 @@ export interface KeyUploadRequest {
 }
 
 export interface KeyUploadResponse {
-  buildingName: string;
-  keyLocationId: number;
+  status: string;
+  message: string;
+  code: number;
+  data: {
+    buildingName: string;
+    keyLocationId: number;
+  };
 }
 
 export interface KeyLocationInfo {
@@ -34,11 +39,10 @@ export const uploadKeyImage = async (file: File): Promise<string> => {
 };
 
 // 카드키 등록
-export const uploadKeyInfo = async (info: KeyUploadRequest): Promise<KeyUploadResponse> => {
-  const response = await apiClient.post<{ data: KeyUploadResponse }>('/admin/key/upload', info);
-  return response.data.data;
+export const uploadKeyInfo = async (info: KeyUploadRequest): Promise<KeyUploadResponse['data']> => {
+  const response = await apiClient.post<KeyUploadResponse>('/admin/key/upload', info);
+  return response.data.data; // buildingName, keyLocationId 반환
 };
-
 // 건물별 카드키 조회
 export const fetchKeyInfo = async (buildingName: string): Promise<KeyLocationInfo> => {
   const response = await apiClient.get<{ data: KeyLocationInfo }>(
