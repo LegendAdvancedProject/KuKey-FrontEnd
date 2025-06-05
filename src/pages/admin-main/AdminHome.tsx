@@ -1,22 +1,14 @@
-// 개방조회 탭
-import { useQuery } from '@tanstack/react-query';
-import {
-  fetchSpaceOpenStatus,
-  FetchSpaceOpenStatusResponse,
-} from '../../shared/apis/user/spaces/spaces';
-import Building from '../main/components/Building';
-import SpaceStatus from '../main/components/SpaceStatus';
+import SpaceStatus from './components/SpaceStatus';
+import Building from './components/Building';
+import { useAdminSpaceManage } from './hooks/useAdminSpaceManage';
 
 const AdminHome = () => {
-  const { data: currentSpaceStatus, isLoading } = useQuery<FetchSpaceOpenStatusResponse>({
-    queryKey: ['spaceOpenStatus'],
-    queryFn: fetchSpaceOpenStatus,
-  });
+  const { currentSpaceStatus, isLoading } = useAdminSpaceManage();
 
   if (isLoading) return <div>로딩 중...</div>;
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center">
       {/* 헤더 */}
 
       <div className="flex w-[370px] flex-col">
