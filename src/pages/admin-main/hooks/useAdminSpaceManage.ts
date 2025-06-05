@@ -18,6 +18,7 @@ export const useAdminSpaceManage = () => {
       if (data.code == 200) {
         console.log('개방 상태 변경 성공');
         queryClient.invalidateQueries({ queryKey: ['openSpace'] });
+        alert('개방 상태 변경 성공');
         // 여기서 openSpaceMutation요청이 'openSpace'라는 쿼리키를 invalidate하므로,
         // currentSpaceStatus라는 GET요청이 다시 요청됨
         // 반대로, currentSpaceStatus는 그냥 GET요청이고, queryClient.invalidateQueries()도 없으니까

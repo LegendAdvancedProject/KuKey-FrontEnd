@@ -28,7 +28,7 @@ const SpaceStatus = ({
     requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
   ) {
     buttonText = '잠금 상태';
-    buttonClass = 'bg-green-400';
+    buttonClass = 'bg-yellow-400';
   } else if (
     openStatus == OPEN_STATUS.OPEN &&
     requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
@@ -37,7 +37,7 @@ const SpaceStatus = ({
     buttonClass = 'bg-blue-400';
   } else if (requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.REQUESTED) {
     buttonText = '개방 요청됨';
-    buttonClass = 'bg-yellow-400';
+    buttonClass = 'bg-green-400';
   } else if (requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.ING) {
     buttonText = '이용 중';
     buttonClass = 'bg-gray-400';

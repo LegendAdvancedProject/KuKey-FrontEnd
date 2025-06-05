@@ -2,9 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { requestAuthCode, verifyAuthCode, saveAuthInfo } from '../../../shared/apis/user/auth/auth';
 import { requestSpaceOpen } from '../../../shared/apis/user/open-request/openRequest';
 import { USER_ACCESS_TOKEN } from '../../../shared/constants/storageKey';
+import { useNavigate } from 'react-router';
 
 export const useEmailAuthRequest = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   // 인증번호 요청
   const { mutate: requestAuthCodeMutation } = useMutation({
@@ -75,8 +77,9 @@ export const useEmailAuthRequest = () => {
   const { mutate: requestSpaceOpenMutation } = useMutation({
     mutationFn: (spaceId: number) => requestSpaceOpen(spaceId),
     onSuccess: () => {
-      console.log('개방요청 성공');
       queryClient.invalidateQueries({ queryKey: ['requestSpaceOpen'] });
+      alert('개방 요청 성공');
+      navigate('/');
     },
   });
 

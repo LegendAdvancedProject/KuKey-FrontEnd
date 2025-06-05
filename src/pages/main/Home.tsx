@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="relative flex justify-center">
+      <div className="flex justify-center">
         {/* 헤더 */}
 
         <div className="flex w-[370px] flex-col">
