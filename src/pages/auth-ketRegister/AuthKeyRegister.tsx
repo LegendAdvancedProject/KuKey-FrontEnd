@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { uploadKeyImage, uploadKeyInfo } from '../../shared/apis/admin/key/keyapi';
+import { uploadKeyImage, uploadKeyInfo } from '../../shared/apis/admin/key/keyApi';
 
 const KeyRegisterPage = () => {
   const navigate = useNavigate();

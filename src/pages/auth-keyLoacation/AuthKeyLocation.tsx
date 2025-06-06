@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchKeyInfo, KeyLocationInfo } from '../../shared/apis/admin/key/keyapi';
+import { fetchKeyInfo, KeyLocationInfo } from '../../shared/apis/admin/key/keyApi';
 const KeyLocationPage = () => {
   const navigate = useNavigate();
 
