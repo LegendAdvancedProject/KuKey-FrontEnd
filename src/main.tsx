@@ -8,8 +8,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorType } from './shared/types/errorType.ts';
 import { handleQueryError } from './shared/utils/handleQueryError.ts';
 import axios from 'axios';
+import ReactModal from 'react-modal'
 
 library.add(fas);
+ReactModal.setAppElement('#root');
 
 const queryClient = new QueryClient({
   defaultOptions: {
