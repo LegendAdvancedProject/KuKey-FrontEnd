@@ -36,8 +36,8 @@ const CustomModal = ({
       style={customStyles}
       contentLabel="Custom Modal" // 스크린 리더 label
     >
-      <div className="flex w-[90vw] max-w-md flex-col items-center rounded-2xl bg-white p-6 text-center shadow-xl">
-        <div className="mb-6">{content}</div>
+      <div className="flex w-[90vw] max-w-md flex-col items-center rounded-[12px] bg-[#F8F8F8] p-6 text-center shadow-xl">
+        <div className="mb-6 text-[15px] font-[600] text-[#454A4D]">{content}</div>
 
         <div className="flex gap-[10px]">
           {showCancelButton && (
@@ -46,7 +46,7 @@ const CustomModal = ({
               onClick={() => {
                 onClose();
               }}
-              className="rounded-lg bg-red-600 px-4 py-2 text-white transition"
+              className="w-[60px] rounded-lg bg-gray-400 px-4 py-2 text-[13px] text-white transition"
             >
               취소
             </button>
@@ -56,7 +56,7 @@ const CustomModal = ({
               onConfirm();
               onClose();
             }}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-white transition"
+            className="w-[60px] rounded-lg bg-[#217446] text-[13px] px-4 py-2 text-white transition"
           >
             확인
           </button>

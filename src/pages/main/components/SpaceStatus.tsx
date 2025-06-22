@@ -23,26 +23,36 @@ const SpaceStatus = ({
   requestOrReservedStatus,
 }: SpaceStatusProps) => {
   let buttonText = '';
-  let buttonClass = '';
+  let buttonTextColor = '';
+  let buttonBgColor = '';
+  let img = '';
 
   if (
     openStatus == OPEN_STATUS.LOCKED &&
     requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
   ) {
-    buttonText = '개방 요청하기';
-    buttonClass = 'bg-green-400';
+    buttonText = '개방 요청';
+    buttonTextColor = 'text-white';
+    buttonBgColor = 'bg-[#217446]';
+    img = '/locked.svg';
   } else if (
     openStatus == OPEN_STATUS.OPEN &&
     requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.NONE
   ) {
     buttonText = '이용 가능';
-    buttonClass = 'bg-blue-400';
+    buttonTextColor = 'text-white';
+    buttonBgColor = 'bg-blue-400';
+    img = '/open.svg';
   } else if (requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.REQUESTED) {
-    buttonText = '개방 요청됨';
-    buttonClass = 'bg-yellow-400';
+    buttonText = '요청 완료';
+    buttonTextColor = 'text-[#3C9E68]';
+    buttonBgColor = 'bg-[#CCF0DC]';
+    img = '/locked.svg';
   } else if (requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.ING) {
     buttonText = '이용 중';
-    buttonClass = 'bg-gray-400';
+    buttonTextColor = 'text-white';
+    buttonBgColor = 'bg-yellow-400';
+    img = '/open.svg';
   }
 
   const navigate = useNavigate();
@@ -58,18 +68,12 @@ const SpaceStatus = ({
 
   return (
     <div
-      className={`flex w-full items-center justify-between rounded-[10px] border border-gray-300 px-[15px] py-[10px] shadow-[7px] ${openStatus == OPEN_STATUS.LOCKED ? 'bg-red-50' : 'bg-blue-50'}`}
+      className={`mb-[10px] flex w-full items-center justify-between rounded-[12px] border border-gray-300 bg-white px-[16px] py-[12px]`}
     >
-      <div className="space-x-[10px]">
-        <span className="text-[18px]">
-          <FontAwesomeIcon icon="location-dot" className="h-[13px] w-[11px]" /> {spaceName}
-        </span>
-        <button
-          type="button"
-          className={`self-center text-[30px] font-[500] ${openStatus == OPEN_STATUS.LOCKED ? 'text-red-500' : 'text-blue-500'}`}
-          disabled={true}
-        >
-          {openStatus == OPEN_STATUS.LOCKED ? '잠금' : '개방'}
+      <div className="flex items-center gap-[16px]">
+        <img src={img} alt="잠금 아이콘" className="h-[38px] w-[38px]" />
+        <button type="button" className={`text-[14px] font-[600] text-[#454A4D]`} disabled={true}>
+          {spaceName}
         </button>
       </div>
 
@@ -77,7 +81,7 @@ const SpaceStatus = ({
       <button
         type="button"
         // buttonClass 적용 안되면 safelist에 등록하기
-        className={`rounded-[6px] border border-[#f2f2f2] p-[10px] text-[15px] text-white ${buttonClass}`}
+        className={`rounded-[48px] text-center px-[16px] py-[8px] text-[14px] font-[600] w-[] ${buttonBgColor} ${buttonTextColor}`}
         disabled={
           !(
             openStatus == OPEN_STATUS.LOCKED &&
