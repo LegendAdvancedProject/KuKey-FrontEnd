@@ -34,7 +34,6 @@ export const useAdminSpaceManage = () => {
         });
         setShowCancelButton(false);
         setIsModalOpen(true);
-        console.log("확인확인")
 
         // 여기서 openSpaceMutation요청이 'openSpace'라는 쿼리키를 invalidate하므로,
         // currentSpaceStatus라는 GET요청이 다시 요청됨

@@ -19,7 +19,7 @@ const SpaceStatus = ({
   openStatus,
   spaceId,
   requestOrReservedStatus,
-  openSpaceMutation
+  openSpaceMutation,
 }: SpaceStatusProps) => {
   let buttonText = '';
   let buttonClass = '';

@@ -15,7 +15,7 @@ const AdminHome = () => {
     showCancelButton,
     currentSpaceStatus,
     isLoading,
-    openSpaceMutation
+    openSpaceMutation,
   } = useAdminSpaceManage();
 
   const navigate = useNavigate();
