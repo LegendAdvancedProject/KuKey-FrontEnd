@@ -1,8 +1,8 @@
 import Header from '../shared/components/User/Header';
 import NavigationBar from '../shared/components/User/NavigationBar';
+import Reserve from './reserve/Reserve';
 import Home from './main/Home';
 import { useState } from 'react';
-import Reserve from './reserve/Reserve';
 
 const UserLayout = () => {
   const [selected, setSelected] = useState<'space' | 'reserve'>('space');
