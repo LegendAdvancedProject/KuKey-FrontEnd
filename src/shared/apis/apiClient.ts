@@ -32,12 +32,14 @@ apiClient.interceptors.response.use(
 
     // HTTP 레벨 에러 통과(status code가 200, 서버와의 통신은 성공함)
     // 하지만 자체 에러 핸들링 해야하는 경우를 처리하는 코드
-    const { code } = response.data;
-    if (code && code !== 200) {
-      return Promise.reject({
-        ...response.data,
-      });
-    }
+    
+    // const { code } = response.data;
+    // console.log("code값: ", code);
+    // if (code && code !== 200) {
+    //   return Promise.reject({
+    //     ...response.data,
+    //   });
+    // }
 
     return response;
   },

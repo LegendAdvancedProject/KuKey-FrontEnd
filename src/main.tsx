@@ -8,8 +8,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorType } from './shared/types/errorType.ts';
 import { handleQueryError } from './shared/utils/handleQueryError.ts';
 import axios from 'axios';
+import ReactModal from 'react-modal';
 
 library.add(fas);
+ReactModal.setAppElement('#root');
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,7 +21,7 @@ const queryClient = new QueryClient({
           // HTTP 통신 문제, 별도 처리 로직 구현 필요
         } else {
           // HTTP status code는 200, 자체 에러 핸들링
-          const err = error as ErrorType
+          const err = error as ErrorType;
           handleQueryError(err);
         }
       },
