@@ -15,7 +15,7 @@ export const useAdminLoginRequest = () => {
       if (data.code === 200) {
         localStorage.setItem(ADMIN_ACCESS_TOKEN, data.data.accessToken);
         queryClient.invalidateQueries({ queryKey: ['adminLogin'] });
-        navigate('/admin-home');
+        navigate('/admin');
       } else {
         alert('관리자 토큰 등록 응답 오류');
       }

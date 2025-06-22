@@ -1,8 +1,8 @@
-import Header from '../shared/components/Header';
-import NavigationBar from '../shared/components/NavigationBar';
+import Header from '../shared/components/User/Header';
+import NavigationBar from '../shared/components/User/NavigationBar';
 import Home from './main/Home';
 import { useState } from 'react';
-import Reserve from './reserve/reserve';
+import Reserve from './reserve/Reserve';
 
 const UserLayout = () => {
   const [selected, setSelected] = useState<'space' | 'reserve'>('space');
@@ -11,9 +11,7 @@ const UserLayout = () => {
     <div className="flex w-full flex-col">
       <Header />
       <NavigationBar selected={selected} setSelected={setSelected} />
-      <main>
-        {selected === 'space' ? <Home /> : <Reserve />}
-      </main>
+      <main>{selected === 'space' ? <Home /> : <Reserve />}</main>
     </div>
   );
 };
