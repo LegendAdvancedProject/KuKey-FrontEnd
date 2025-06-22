@@ -1,6 +1,6 @@
 import Header from '../shared/components/User/Header';
 import NavigationBar from '../shared/components/User/NavigationBar';
-import Reserve from './reserve/Reserve_TEMP';
+import Reserve from './reserve/Reserve';
 import Home from './main/Home';
 import { useState } from 'react';
 
