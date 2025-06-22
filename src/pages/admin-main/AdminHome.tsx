@@ -4,9 +4,19 @@ import { useAdminSpaceManage } from './hooks/useAdminSpaceManage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ADMIN_ACCESS_TOKEN } from '../../shared/constants/storageKey';
 import { useNavigate } from 'react-router';
+import CustomModal from '../../shared/components/CustomModal';
 
 const AdminHome = () => {
-  const { currentSpaceStatus, isLoading } = useAdminSpaceManage();
+  const {
+    isModalOpen,
+    modalContent,
+    modalCloseHandler,
+    modalConfirmHandler,
+    showCancelButton,
+    currentSpaceStatus,
+    isLoading,
+    openSpaceMutation
+  } = useAdminSpaceManage();
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -33,6 +43,7 @@ const AdminHome = () => {
               openStatus={space.openStatus}
               spaceId={space.spaceId}
               requestOrReservedStatus={space.RequestOrReservationStatus}
+              openSpaceMutation={() => openSpaceMutation(space.spaceId)}
             />
           </div>
         ))}
@@ -41,6 +52,14 @@ const AdminHome = () => {
       <button type="button" className="absolute right-5 bottom-5" onClick={handleLogout}>
         <FontAwesomeIcon icon="user-tie" size="3x" />
       </button>
+
+      <CustomModal
+        isOpen={isModalOpen}
+        content={modalContent}
+        onClose={modalCloseHandler}
+        onConfirm={modalConfirmHandler}
+        showCancelButton={showCancelButton}
+      />
     </div>
   );
 };

@@ -6,6 +6,8 @@ import {
   RequestOrReservationStatus,
 } from '../../../shared/constants/spaceStatus';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
+import CustomModal from '../../../shared/components/CustomModal';
 
 type SpaceStatusProps = {
   spaceName: string;
@@ -45,8 +47,13 @@ const SpaceStatus = ({
 
   const navigate = useNavigate();
 
-  const handleSpaceButtonClick = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleConfirm = () => {
     navigate('/konkuk-student-auth', { state: { spaceId } });
+  };
+
+  const handleSpaceButtonClick = () => {
+    setIsModalOpen(true);
   };
 
   return (
@@ -81,6 +88,13 @@ const SpaceStatus = ({
       >
         {buttonText}
       </button>
+
+      <CustomModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        content={`${spaceName} 개방을 요청하시겠어요?`}
+        onConfirm={handleConfirm}
+      />
     </div>
   );
 };

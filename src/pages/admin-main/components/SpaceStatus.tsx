@@ -5,13 +5,13 @@ import {
   REQUEST_OR_RESERVATION_STATUS,
   RequestOrReservationStatus,
 } from '../../../shared/constants/spaceStatus';
-import { useAdminSpaceManage } from '../hooks/useAdminSpaceManage';
 
 type SpaceStatusProps = {
   spaceName: string;
   openStatus: OpenStatus;
   spaceId: number;
   requestOrReservedStatus: RequestOrReservationStatus;
+  openSpaceMutation: (spaceId: number) => void;
 };
 
 const SpaceStatus = ({
@@ -19,6 +19,7 @@ const SpaceStatus = ({
   openStatus,
   spaceId,
   requestOrReservedStatus,
+  openSpaceMutation
 }: SpaceStatusProps) => {
   let buttonText = '';
   let buttonClass = '';
@@ -42,8 +43,6 @@ const SpaceStatus = ({
     buttonText = '이용 중';
     buttonClass = 'bg-gray-400';
   }
-
-  const { openSpaceMutation } = useAdminSpaceManage();
 
   const handleOpenClick = () => {
     openSpaceMutation(spaceId); // 개방 상태 변경 api

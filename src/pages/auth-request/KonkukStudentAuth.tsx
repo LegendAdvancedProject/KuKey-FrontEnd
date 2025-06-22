@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { useEmailAuthForm } from './hooks/useEmailAuthForm';
 import { useEmailAuthRequest } from './hooks/useEmailAuthRequest';
 import { useState } from 'react';
+import CustomModal from '../../shared/components/CustomModal';
 
 const KonkukStudentAuth = () => {
   const navigate = useNavigate();
@@ -22,7 +23,15 @@ const KonkukStudentAuth = () => {
     authNumber,
   } = useEmailAuthForm();
 
-  const { requestAuthCodeMutation, verifyAuthMutation } = useEmailAuthRequest();
+  const {
+    isModalOpen,
+    modalContent,
+    modalCloseHandler,
+    modalConfirmHandler,
+    showCancelButton,
+    requestAuthCodeMutation,
+    verifyAuthMutation,
+  } = useEmailAuthRequest();
 
   const onSubmitEmail = () => {
     requestAuthCodeMutation({ userEmail, spaceId, setShowEnterAuth });
@@ -96,6 +105,14 @@ const KonkukStudentAuth = () => {
           </button>
         </div>
       </div>
+
+      <CustomModal
+        isOpen={isModalOpen}
+        content={modalContent}
+        onClose={modalCloseHandler}
+        onConfirm={modalConfirmHandler}
+        showCancelButton={showCancelButton}
+      />
     </div>
   );
 };
