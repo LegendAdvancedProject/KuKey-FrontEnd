@@ -62,7 +62,7 @@ const KeyRegisterPage = () => {
       <div className="flex flex-col space-y-[22px] p-6 text-sm">
         {/* 입력 필드 */}
         <div className="flex flex-col space-y-2">
-          <label className="w-[80px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
+          <label className="w-[80px] pl-[3px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
             관리자명
           </label>
           <input
@@ -91,7 +91,7 @@ const KeyRegisterPage = () => {
           {/* 커스텀 업로드 버튼 */}
           <label
             htmlFor="file"
-            className="flex h-[50px] w-[163px] cursor-pointer items-center justify-center space-x-2 rounded-[8px] border border-[#E8EEF2] bg-white px-[14px] py-[13px]"
+            className="flex h-[50px] w-[163px] cursor-pointer items-center justify-center space-x-2 rounded-[8px] border border-[#E8EEF2] bg-white px-[14px] py-[13px] pl-[3px]"
           >
             {/* SVG 아이콘 */}
             <svg
@@ -114,7 +114,7 @@ const KeyRegisterPage = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <label className="w-[80px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
+          <label className="w-[80px] pl-[3px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
             설명
           </label>
           <textarea
@@ -124,22 +124,21 @@ const KeyRegisterPage = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-
-        {/* 하단 버튼 */}
-        <div className="flex justify-between space-x-4 pt-4">
-          <button
-            className="w-full rounded border border-green-800 py-2 font-semibold text-green-800"
-            onClick={() => navigate(-1)}
-          >
-            취소
-          </button>
-          <button
-            className="w-full rounded bg-green-800 py-2 font-semibold text-white"
-            onClick={handleSubmit}
-          >
-            등록
-          </button>
-        </div>
+      </div>
+      {/* 하단 버튼 */}
+      <div className="mx-auto flex w-[360px] justify-between space-x-4 pt-4">
+        <button
+          className="h-[48px] w-[171px] rounded-[10px] bg-[#ECECEC] py-2 text-[16px] font-[600] text-[#929292]"
+          onClick={() => navigate(-1)}
+        >
+          취소
+        </button>
+        <button
+          className="h-[48px] w-[171px] rounded-[10px] bg-[#217446] py-2 text-[16px] font-[600] text-white"
+          onClick={handleSubmit}
+        >
+          등록
+        </button>
       </div>
     </div>
   );
