@@ -16,11 +16,13 @@ const ReserveHistory = () => {
     queryFn: () => reserveHistory(studentId, name),
     enabled: !!studentId && !!name,
   });
-
+  
   if (isLoading) return <div>로딩 중...</div>;
-  if (!data?.data) return <div>데이터가 없습니다.</div>;
-
-  const { studentNumber, studentName, reservationList } = data.data;
+  
+  // 안전하게 기본값 처리
+  const studentNumber = data?.data?.studentNumber ?? '';
+  const studentName = data?.data?.studentName ?? '';
+  const reservationList = data?.data?.reservationList ?? [];
 
   return (
     <div className="max-h-screen overflow-y-auto space-y-[30px]">
