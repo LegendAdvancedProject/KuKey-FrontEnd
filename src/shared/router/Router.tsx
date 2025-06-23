@@ -3,6 +3,7 @@ import KonkukStudentAuth from '../../pages/auth-request/KonkukStudentAuth';
 import AdminLogin from '../../pages/admin-login/AdminLogin';
 import UserLayout from '../../pages/UserLayout';
 import AdminLayout from '../../pages/AdminLayout';
+import KeyRegister from '../../pages/auth-ketRegister/AuthKeyRegister';
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <AdminLayout />
+    element: <AdminLayout />,
   },
   {
     path: '/konkuk-student-auth',
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: '/admin-login',
     element: <AdminLogin />,
+  },
+  {
+    path: '/register',
+    element: <KeyRegister />,
   },
 ]);
 
