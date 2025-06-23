@@ -28,7 +28,7 @@ const KeyLocationPage = () => {
           <button
             key={name}
             className={`h-full w-1/3 rounded-[8px] px-4 py-[4px] text-xl font-semibold ${
-              selectedBuilding === name ? 'bg-white text-black' : 'bg-[#ECECEC] text-black'
+              selectedBuilding === name ? 'bg-white text-[#217446]' : 'bg-[#ECECEC] text-[#6C7072]'
             } `}
             onClick={() => {
               setSelectedBuilding(name);
