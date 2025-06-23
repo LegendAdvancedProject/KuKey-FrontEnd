@@ -65,12 +65,12 @@ const KeyLocationPage = () => {
       </div>
 
       {/* 기록 추가 버튼 */}
-      <div className="flex w-full justify-end pr-1">
+      <div className="flex h-[48px] w-[359px] justify-center rounded-[10px] bg-[#217446] text-white">
         <button
-          className="cursor-pointer rounded border px-4 py-1 text-sm hover:bg-green-800 hover:text-white"
+          className="cursor-pointer text-sm text-[16px]"
           onClick={() => navigate('/register', { state: { buildingName: selectedBuilding } })}
         >
-          기록 추가
+          정보 업데이트
         </button>
       </div>
     </div>
