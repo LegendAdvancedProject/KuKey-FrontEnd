@@ -1,6 +1,34 @@
 @import 'tailwindcss';
 
 @layer components {
+  .react-datepicker {
+    font-size: 18px;
+    width: 180px !important;
+  }
+  
+  .react-datepicker__month-container {
+    width: 100%;
+  }
+  
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    width: 3.2rem;
+    height: 3.2rem;
+    line-height: 3.2rem;
+    font-size: 1.2rem;
+  }
+  
+  .react-datepicker__header {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+  
+  .react-datepicker__current-month {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
   .bg-konkuk-green {
     @apply bg-[#217446];
   }

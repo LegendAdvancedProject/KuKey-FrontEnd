@@ -122,7 +122,6 @@ export const useEmailAuthRequest = ({
         setShowCancelButton(false);
         setIsModalOpen(true);
       } else {
-        setModalContent('인증정보 저장 실패');
         setModalContent('인증정보 저장에 실패했습니다.');
         setModalConfirmHandler(() => () => {
           setIsModalOpen(false);
