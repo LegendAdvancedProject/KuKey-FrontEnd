@@ -63,14 +63,7 @@ export const useEmailAuthRequest = () => {
       }
     ) => {
       if (data.code === 200) {
-        // 인증정보 저장 여부 모달 설정
-        setModalContent('인증정보를 저장하시겠어요?');
-        setModalConfirmHandler(() => () => {
-          saveAuthInfoMutation({ userEmail: variables.userEmail, spaceId: variables.spaceId });
-        });
-        setModalCloseHandler(() => () => {
-          setIsModalOpen(false);
-          localStorage.setItem(USER_ACCESS_TOKEN, String(data.data.accessToken));
+        localStorage.setItem(USER_ACCESS_TOKEN, String(data.data.accessToken));
           requestSpaceOpenMutation(variables.spaceId);
           setModalContent('개방이 요청되었습니다');
           setModalConfirmHandler(() => () => {
@@ -79,9 +72,6 @@ export const useEmailAuthRequest = () => {
           });
           setShowCancelButton(false);
           setIsModalOpen(true);
-        });
-        setShowCancelButton(true);
-        setIsModalOpen(true);
       } else {
         setModalContent('인증정보 확인 실패');
         setModalConfirmHandler(() => () => {
