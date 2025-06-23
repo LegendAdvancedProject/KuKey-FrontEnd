@@ -20,22 +20,15 @@ const KeyLocationPage = () => {
     loadKeyInfo();
   }, [selectedBuilding]);
 
-  // 버튼 클릭 핸들러
-  const handleClick = (label: string) => {
-    console.log(`${label} 클릭!`);
-  };
-
   return (
     <div className="flex flex-col items-center space-y-6 px-4 py-6 text-sm">
       {/* 건물 버튼 */}
-      <div className="flex justify-center space-x-4">
+      <div className="flex h-[36px] w-[358px] shrink-0 items-center justify-center space-x-2 rounded-[8px] bg-[#ECECEC] p-1">
         {buildings.map((name) => (
           <button
             key={name}
-            className={`rounded border px-4 py-1 font-semibold ${
-              selectedBuilding === name
-                ? 'bg-green-800 text-white'
-                : 'border-green-800 text-green-800'
+            className={`h-full w-1/3 rounded-[8px] px-4 py-[4px] text-xl font-[600] ${
+              selectedBuilding === name ? 'bg-white text-[#217446]' : 'bg-[#ECECEC] text-[#6C7072]'
             } `}
             onClick={() => {
               setSelectedBuilding(name);
@@ -46,12 +39,9 @@ const KeyLocationPage = () => {
         ))}
       </div>
 
-      {/* 제목 */}
-      <h2 className="text-lg font-bold text-green-800">관리자용</h2>
-
       {/* 카드키 사진 + 설명 영역 */}
-      <div className="flex justify-center space-x-4">
-        <div className="flex h-[180px] w-[140px] items-center justify-center rounded border text-lg font-bold">
+      <div className="flex flex-col items-center space-y-[10px]">
+        <div className="h-[267px] w-[354px] flex-shrink-0 overflow-hidden rounded-[8px] border border-[#E8EEF2] bg-white">
           {keyInfo?.imageUrl ? (
             <img
               src={keyInfo.imageUrl}
@@ -59,40 +49,29 @@ const KeyLocationPage = () => {
               className="h-full w-full rounded object-cover"
             />
           ) : (
-            '카드키 사진'
+            <div className="flex h-full w-full items-center justify-center text-gray-400">
+              카드키 사진
+            </div>
           )}
         </div>
-        <div className="flex h-[180px] w-[140px] flex-col items-center justify-center rounded border text-sm font-semibold">
-          <span className="w-[130px] break-words whitespace-normal">
-            관리자명 : {keyInfo?.adminName ?? ''}
-          </span>
-          <span className="w-[130px] break-words whitespace-normal">
-            세부내용 : {keyInfo?.description ?? ''}
-          </span>
+        {/* 관리자명 */}
+        <div className="w-[354px] pl-2 text-left text-lg font-semibold">
+          관리자명 : {keyInfo?.adminName ?? ''}
+        </div>
+        {/* 상세설명 영역 */}
+        <div className="h-[172px] w-[358px] flex-shrink-0 rounded-[8px] bg-white p-[10px_14px] text-left text-lg font-normal break-words whitespace-pre-wrap">
+          {keyInfo?.description ?? ''}
         </div>
       </div>
 
       {/* 기록 추가 버튼 */}
-      <div className="flex w-full justify-end pr-1">
+      <div className="flex h-[48px] w-[359px] justify-center rounded-[10px] bg-[#217446] text-white">
         <button
-          className="cursor-pointer rounded border px-4 py-1 text-sm hover:bg-green-800 hover:text-white"
+          className="cursor-pointer text-sm text-[16px]"
           onClick={() => navigate('/register', { state: { buildingName: selectedBuilding } })}
         >
-          기록 추가
+          정보 업데이트
         </button>
-      </div>
-
-      {/* 하단 메뉴 버튼 */}
-      <div className="flex w-full justify-between space-x-2 pt-4">
-        {['개방관리', '키 관리', '로그아웃'].map((label) => (
-          <button
-            key={label}
-            className="w-full cursor-pointer rounded border border-green-800 py-1 font-semibold text-green-800 hover:bg-green-800 hover:text-white"
-            onClick={() => handleClick(label)}
-          >
-            {label}
-          </button>
-        ))}
       </div>
     </div>
   );
