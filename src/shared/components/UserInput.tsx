@@ -17,21 +17,21 @@ const UserInput = ({
   type = 'text',
   placeholder,
   register,
-  error,
+  // error,
   rules,
-  width,
 }: InputProps) => {
   return (
-    <div className="flex flex-col items-start gap-1">
-      {label && <label className="text-[1.3rem]">{label}</label>}
-      <input
-        type={type}
-        placeholder={placeholder}
-        {...register(registerName, rules)}
-        className="form-input"
-        style={{ width: `${width}` }}
-      />
-      {error && <p className="form-error">{error.message}</p>}
+    <div className="flex w-full flex-col items-start">
+      {label && <label className="mb-[4px] text-[14px] font-[700] text-[#464A4D]">{label}</label>}
+      <div className="w-full">
+        <input
+          type={type}
+          placeholder={placeholder}
+          {...register(registerName, rules)}
+          className="w-full rounded-[8px] bg-white p-[13px] text-[14px] font-[400]"
+        />
+      </div>
+      {/* {error && <p className="form-error mt-[4px]">{error.message}</p>} */}
     </div>
   );
 };

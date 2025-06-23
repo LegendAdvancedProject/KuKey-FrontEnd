@@ -13,7 +13,7 @@ const AdminHeader = () => {
   };
 
   return (
-    <div className="flex w-full justify-between bg-[#217446] px-[15px] py-[13px] text-white">
+    <header className="flex w-full justify-between bg-[#217446] px-[15px] py-[13px] text-white">
       <div className="flex items-baseline gap-[10px]">
         <span className="text-[20px] font-[800]">KuKey</span>
         <span className="text-[16px] font-[600]">Admin</span>
@@ -28,7 +28,7 @@ const AdminHeader = () => {
         onConfirm={handleConfirm}
         showCancelButton={true}
       />
-    </div>
+    </header>
   );
 };
 
