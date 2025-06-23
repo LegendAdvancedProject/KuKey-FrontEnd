@@ -60,11 +60,14 @@ const KeyRegisterPage = () => {
       </main>
       <div className="flex flex-col space-y-4 p-6 text-sm">
         {/* 입력 필드 */}
-        <div className="flex items-center space-x-4">
-          <label className="w-[80px] font-semibold">관리자명</label>
+        <div className="flex flex-col space-y-2">
+          <label className="w-[80px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
+            관리자명
+          </label>
           <input
             type="text"
-            className="w-full rounded border px-2 py-1"
+            placeholder="내용을 입력해주세요."
+            className="h-[50px] w-[358px] rounded-[8px] border border-[#E8EEF2] bg-white px-[14px] py-[13px] text-sm text-[14px] placeholder:text-[#CBD2D9]"
             value={adminName}
             onChange={(e) => setAdminName(e.target.value)}
           />
