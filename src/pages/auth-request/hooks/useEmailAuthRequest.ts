@@ -35,7 +35,7 @@ export const useEmailAuthRequest = () => {
           setIsModalOpen(false);
           navigate('/');
         });
-        setShowCancelButton(true);
+        setShowCancelButton(false);
         setIsModalOpen(true);
         requestSpaceOpenMutation(variables.spaceId);
       } else {
@@ -105,7 +105,7 @@ export const useEmailAuthRequest = () => {
           setIsModalOpen(false);
           navigate('/');
         });
-        setShowCancelButton(true);
+        setShowCancelButton(false);
         setIsModalOpen(true);
       } else {
         setModalContent('인증정보 저장 실패');
