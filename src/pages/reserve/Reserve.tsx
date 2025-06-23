@@ -36,7 +36,7 @@ const Reserve = () => {
 
   const navigate = useNavigate();
   const handleLogClick = () => {
-    navigate('/');
+    navigate('/reserve-auth');
   };
 
   const handleDateChange = (date: Date | null) => {
