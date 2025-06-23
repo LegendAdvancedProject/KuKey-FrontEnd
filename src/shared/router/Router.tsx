@@ -4,6 +4,7 @@ import AdminLogin from '../../pages/admin-login/AdminLogin';
 import UserLayout from '../../pages/UserLayout';
 import AdminLayout from '../../pages/AdminLayout';
 import KeyRegister from '../../pages/auth-ketRegister/AuthKeyRegister';
+import ReserveHistory from '../../pages/reserve/ReserveHistory';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <KeyRegister />,
+  },
+  {
+    path: '/reserve-history',
+    element: <ReserveHistory />,
   },
 ]);
 
