@@ -59,7 +59,7 @@ const KeyRegisterPage = () => {
           ))}
         </div>
       </main>
-      <div className="flex flex-col space-y-4 p-6 text-sm">
+      <div className="flex flex-col space-y-[22px] p-6 text-sm">
         {/* 입력 필드 */}
         <div className="flex flex-col space-y-2">
           <label className="w-[80px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
@@ -113,10 +113,13 @@ const KeyRegisterPage = () => {
           </label>
         </div>
 
-        <div className="flex items-start space-x-4">
-          <label className="w-[80px] pt-2 font-semibold">설명</label>
+        <div className="flex flex-col space-y-2">
+          <label className="w-[80px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
+            설명
+          </label>
           <textarea
-            className="h-[100px] w-full rounded border px-2 py-1"
+            className="h-[231px] w-[358px] rounded-[8px] border border-[#E8EEF2] bg-white px-[14px] py-[13px] text-sm text-[14px] placeholder:text-[#CBD2D9]"
+            placeholder="내용을 입력해주세요"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
