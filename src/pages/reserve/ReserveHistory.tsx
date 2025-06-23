@@ -30,11 +30,11 @@ const ReserveHistory = () => {
         <div className="mb-2 pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">학생정보</div>
         <div className="flex h-[47px] items-center justify-center gap-[10px] rounded-[8px] bg-white px-[28px]">
           <div className="flex items-center gap-[80px]">
-            <div className="flex items-start gap-[15px]">
+            <div className="flex items-center gap-[15px]">
               <span className="text-[12px] font-[600] text-[#217446]">학번</span>
               <span className="text-[16px] font-[600] text-black">{studentNumber}</span>
             </div>
-            <div className="flex items-start gap-[15px]">
+            <div className="flex items-center gap-[15px]">
               <span className="text-[12px] font-[600] text-[#217446]">이름</span>
               <span className="text-[16px] font-[600] text-black">{studentName}</span>
             </div>
