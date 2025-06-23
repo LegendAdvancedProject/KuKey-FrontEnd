@@ -20,7 +20,7 @@ const ReserveHistory = () => {
   useEffect(() => {
     // TODO: API 주소에 맞게 수정예정
     axios
-      .get('/api/reservation')
+      .get('/reservations?studentNumber=${studentId}&studentName=${name}')
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, []);
