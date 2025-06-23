@@ -13,6 +13,7 @@ const KeyRegisterPage = () => {
   const [adminName, setAdminName] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState<File | null>(null);
+  const isUploaded = file !== null;
 
   const handleSubmit = async () => {
     if (!file || !adminName || !description) return alert('모든 항목을 입력해주세요.');
@@ -73,16 +74,43 @@ const KeyRegisterPage = () => {
           />
         </div>
 
-        <div className="flex items-center space-x-4">
-          <label className="w-[80px] font-semibold">사진</label>
+        <div className="flex flex-col space-y-2">
+          <label className="text-[14px] leading-[20px] font-bold text-[#464A4D]">사진</label>
+
+          {/* 숨겨진 파일 input */}
           <input
+            id="file"
             type="file"
-            className="rounded border px-2 py-1"
+            className="hidden"
             onChange={(e) => {
               const f = e.target.files?.[0];
               if (f) setFile(f);
             }}
           />
+
+          {/* 커스텀 업로드 버튼 */}
+          <label
+            htmlFor="file"
+            className="flex h-[50px] w-[163px] cursor-pointer items-center justify-center space-x-2 rounded-[8px] border border-[#E8EEF2] bg-white px-[14px] py-[13px]"
+          >
+            {/* SVG 아이콘 */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+            >
+              <path
+                d="M2 18C1.45 18 0.979333 17.8043 0.588 17.413C0.196667 17.0217 0.000666667 16.5507 0 16V2C0 1.45 0.196 0.979333 0.588 0.588C0.98 0.196667 1.45067 0.000666667 2 0H16C16.55 0 17.021 0.196 17.413 0.588C17.805 0.98 18.0007 1.45067 18 2V16C18 16.55 17.8043 17.021 17.413 17.413C17.0217 17.805 16.5507 18.0007 16 18H2ZM3 14H15L11.25 9L8.25 13L6 10L3 14Z"
+                fill="#BBC5CC"
+              />
+            </svg>
+            {/* 텍스트 */}
+            <span className={`text-[14px] ${isUploaded ? 'text-[#217446]' : 'text-[#CBD2D9]'}`}>
+              {isUploaded ? '업로드 완료' : '사진 업로드하기'}
+            </span>
+          </label>
         </div>
 
         <div className="flex items-start space-x-4">
