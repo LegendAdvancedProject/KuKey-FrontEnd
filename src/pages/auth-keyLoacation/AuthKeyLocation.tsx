@@ -40,8 +40,8 @@ const KeyLocationPage = () => {
       </div>
 
       {/* 카드키 사진 + 설명 영역 */}
-      <div className="flex-col justify-center space-x-4">
-        <div className="flex h-[180px] w-[140px] items-center justify-center rounded border text-lg font-bold">
+      <div className="flex flex-col items-center space-y-[10px]">
+        <div className="h-[267px] w-[354px] flex-shrink-0 overflow-hidden rounded-[8px] border border-[#E8EEF2] bg-white">
           {keyInfo?.imageUrl ? (
             <img
               src={keyInfo.imageUrl}
@@ -49,16 +49,18 @@ const KeyLocationPage = () => {
               className="h-full w-full rounded object-cover"
             />
           ) : (
-            '카드키 사진'
+            <div className="flex h-full w-full items-center justify-center text-gray-400">
+              카드키 사진
+            </div>
           )}
         </div>
-        <div className="flex h-[180px] w-[140px] flex-col items-center justify-center rounded border text-sm font-semibold">
-          <span className="w-[130px] break-words whitespace-normal">
-            관리자명 : {keyInfo?.adminName ?? ''}
-          </span>
-          <span className="w-[130px] break-words whitespace-normal">
-            세부내용 : {keyInfo?.description ?? ''}
-          </span>
+        {/* 관리자명 */}
+        <div className="w-[354px] pl-2 text-left text-lg font-semibold">
+          관리자명 : {keyInfo?.adminName ?? ''}
+        </div>
+        {/* 상세설명 영역 */}
+        <div className="h-[172px] w-[358px] flex-shrink-0 rounded-[8px] bg-white p-[10px_14px] text-left text-lg font-normal break-words whitespace-pre-wrap">
+          {keyInfo?.description ?? ''}
         </div>
       </div>
 
