@@ -46,9 +46,6 @@ const KeyLocationPage = () => {
         ))}
       </div>
 
-      {/* 제목 */}
-      <h2 className="text-lg font-bold text-green-800">관리자용</h2>
-
       {/* 카드키 사진 + 설명 영역 */}
       <div className="flex justify-center space-x-4">
         <div className="flex h-[180px] w-[140px] items-center justify-center rounded border text-lg font-bold">
