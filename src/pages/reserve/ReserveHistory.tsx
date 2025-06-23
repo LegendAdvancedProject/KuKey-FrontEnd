@@ -71,6 +71,15 @@ const ReserveHistory = () => {
           </div>
         </div>
       </div>
+      {/* 하단 버튼 */}
+      <div className="mx-auto flex w-[360px] justify-between space-x-4">
+        <button className="h-[48px] w-[171px] rounded-[10px] bg-[#ECECEC] py-2 text-[16px] font-[600] text-[#929292]">
+          예약취소
+        </button>
+        <button className="h-[48px] w-[171px] rounded-[10px] bg-[#217446] py-2 text-[16px] font-[600] text-white">
+          확인
+        </button>
+      </div>
     </div>
   );
 };
