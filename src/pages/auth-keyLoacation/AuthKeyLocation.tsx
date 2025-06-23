@@ -27,7 +27,7 @@ const KeyLocationPage = () => {
         {buildings.map((name) => (
           <button
             key={name}
-            className={`h-full w-1/3 rounded-[8px] px-4 py-[4px] text-xl font-semibold ${
+            className={`h-full w-1/3 rounded-[8px] px-4 py-[4px] text-xl font-[600] ${
               selectedBuilding === name ? 'bg-white text-[#217446]' : 'bg-[#ECECEC] text-[#6C7072]'
             } `}
             onClick={() => {
