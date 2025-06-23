@@ -54,7 +54,7 @@ const ReserveHistory = () => {
             { label: '소속단체', value: data.organization },
           ].map(({ label, value }) => (
             <div key={label}>
-              <div className="pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
+              <div className="mb-2 pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
                 {label}
               </div>
               <div className="flex h-[46px] w-[358px] items-start gap-[10px] rounded-[8px] bg-white px-[14px] py-[10px]">
@@ -65,7 +65,7 @@ const ReserveHistory = () => {
 
           {/* 사용목적 */}
           <div>
-            <div className="pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
+            <div className="mb-2 pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
               사용목적
             </div>
             <div className="flex h-[92px] w-[358px] items-start gap-[10px] rounded-[8px] bg-white px-[14px] py-[10px]">
