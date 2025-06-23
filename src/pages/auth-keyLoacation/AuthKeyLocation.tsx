@@ -28,14 +28,12 @@ const KeyLocationPage = () => {
   return (
     <div className="flex flex-col items-center space-y-6 px-4 py-6 text-sm">
       {/* 건물 버튼 */}
-      <div className="flex justify-center space-x-4">
+      <div className="flex h-[36px] w-[358px] shrink-0 items-center justify-center space-x-2 rounded-[8px] bg-[#ECECEC] p-1">
         {buildings.map((name) => (
           <button
             key={name}
-            className={`rounded border px-4 py-1 font-semibold ${
-              selectedBuilding === name
-                ? 'bg-green-800 text-white'
-                : 'border-green-800 text-green-800'
+            className={`h-full w-1/3 rounded-[8px] px-4 py-[4px] text-sm font-semibold ${
+              selectedBuilding === name ? 'bg-white text-black' : 'bg-[#ECECEC] text-black'
             } `}
             onClick={() => {
               setSelectedBuilding(name);
