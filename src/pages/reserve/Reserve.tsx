@@ -94,21 +94,38 @@ const Reserve = () => {
     setSelectedTimes(allSelected);
     setReservationStartTime(`${allSelected[0]}:00`);
     const lastHour = parseInt(allSelected[allSelected.length - 1].split(':')[0]) + 1;
-    setReservationEndTime(`${lastHour.toString().padStart(2, '0')}:00`);
+    setReservationEndTime(`${lastHour.toString().padStart(2, '0')}:00:00`);
   };
 
   // 예약 불가 여부 확인
   const isUnavailable = (time: string) => {
-    const roomList = spaceReserveStatus?.reservationList;
+    const roomList = spaceReserveStatus?.data?.reservationList;
     if (!roomList) return false;
 
     const target = roomList.find((room) => room.spaceDisplayName === selectedRoom.label);
-    return target?.unavailableReservationTimeList.some((t) => t.startTime === time) ?? false;
+    if (!target) return false;
+
+    return target.unavailableReservationTimeList.some((t) => {
+      const result = time >= t.startTime && time < t.endTime;
+      console.log(`${time} >= ${t.startTime} && ${time} < ${t.endTime} → ${result}`);
+      return result;
+    });
   };
 
   const handleReserveBtnClick = () => {
+    if (!reservationStartTime || !reservationEndTime) return;
 
-  }
+    const spaceId = roomOptions.findIndex((room) => room.value === selectedRoom.value) + 1;
+    navigate('/student-reserve-auth', {
+      state: {
+        date: formattedDate,
+        room: selectedRoom,
+        startTime: reservationStartTime,
+        endTime: reservationEndTime,
+        spaceId: spaceId,
+      },
+    });
+  };
 
   return (
     <div className="flex w-full flex-col px-[16px]">
