@@ -55,11 +55,11 @@ const KeyLocationPage = () => {
           )}
         </div>
         {/* 관리자명 */}
-        <div className="w-[354px] pl-2 text-left text-lg font-semibold">
+        <div className="w-[354px] pl-2 text-left text-[18px] font-semibold">
           관리자명 : {keyInfo?.adminName ?? ''}
         </div>
         {/* 상세설명 영역 */}
-        <div className="h-[172px] w-[358px] flex-shrink-0 rounded-[8px] bg-white p-[10px_14px] text-left text-lg font-normal break-words whitespace-pre-wrap">
+        <div className="h-[172px] w-[358px] flex-shrink-0 rounded-[8px] bg-white p-[10px_14px] text-left text-[15px] font-normal break-words whitespace-pre-wrap">
           {keyInfo?.description ?? ''}
         </div>
       </div>

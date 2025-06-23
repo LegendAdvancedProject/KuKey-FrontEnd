@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { uploadKeyImage, uploadKeyInfo } from '../../shared/apis/admin/key/keyApi';
 import AdminHeader from '../../shared/components/Admin/AdminHeader';
 import AdminNavigationBar from '../../shared/components/Admin/AdminNavigationBar';
+import CustomModal from '../../shared/components/CustomModal';
 
 const KeyRegisterPage = () => {
   const navigate = useNavigate();
@@ -10,13 +11,26 @@ const KeyRegisterPage = () => {
   const buildingName = location.state?.buildingName || '새천년관';
   const [selected, setSelected] = useState<'space' | 'key'>('key');
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+  const [modalConfirmHandler, setModalConfirmHandler] = useState<() => void>(() => () => {});
+  const [showCancelButton, setShowCancelButton] = useState(true);
+
   const [adminName, setAdminName] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const isUploaded = file !== null;
 
   const handleSubmit = async () => {
-    if (!file || !adminName || !description) return alert('모든 항목을 입력해주세요.');
+    if (!file || !adminName || !description) {
+      setModalContent('모든 항목을 입력해주세요');
+      setModalConfirmHandler(() => () => {
+        setIsModalOpen(false);
+      });
+      setShowCancelButton(false);
+      setIsModalOpen(true);
+      return;
+    }
 
     try {
       const imageUrl = await uploadKeyImage(file);
@@ -26,14 +40,20 @@ const KeyRegisterPage = () => {
         imageUrl,
         description,
       });
-      alert('등록 완료!');
-      navigate(-1);
-    } catch (err) {
-      if (err instanceof Error) {
-        alert('등록 실패: ' + err.message);
-      } else {
-        alert('등록 실패: 알 수 없는 오류');
-      }
+      setModalContent('등록이 완료됐습니다.');
+      setModalConfirmHandler(() => () => {
+        navigate(-1);
+        setIsModalOpen(false);
+      });
+      setShowCancelButton(false);
+      setIsModalOpen(true);
+    } catch {
+      setModalContent('오류가 발생했습니다.');
+      setModalConfirmHandler(() => () => {
+        setIsModalOpen(false);
+      });
+      setShowCancelButton(false);
+      setIsModalOpen(true);
     }
   };
 
@@ -140,6 +160,14 @@ const KeyRegisterPage = () => {
           등록
         </button>
       </div>
+
+      <CustomModal
+        isOpen={isModalOpen}
+        content={modalContent}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={modalConfirmHandler}
+        showCancelButton={showCancelButton}
+      />
     </div>
   );
 };
