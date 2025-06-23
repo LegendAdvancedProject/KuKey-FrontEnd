@@ -8,12 +8,12 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-[#217446] px-[15px] py-[13px] flex w-full justify-between text-white">
+    <header className="bg-[#217446] px-[15px] py-[16px] flex w-full justify-between text-white">
       <span className='text-[20px] font-[800]'>KuKey</span>
       <button type="button" className="" onClick={handleAdminClick}>
         <FontAwesomeIcon icon="user" size="2x"/>
       </button>
-    </div>
+    </header>
   );
 };
 
