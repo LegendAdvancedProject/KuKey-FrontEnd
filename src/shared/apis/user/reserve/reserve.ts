@@ -2,12 +2,12 @@ import apiClient from '../../apiClient';
 import { API } from '../../urls';
 
 export type ReservationResponse = {
-    status: string;
-    message: string;
-    data: {
-      reservationList: ReservationItem[];
-    };
+  status: string;
+  message: string;
+  data: {
+    reservationList: ReservationItem[];
   };
+};
 
 export type ReservationItem = {
   spaceId: number;
@@ -52,5 +52,40 @@ export const reserveSpace = async (
   };
 
   const response = await apiClient.post(API.RESERVE.RESERVE_SPACE(spaceId), requestBody);
+  return response.data;
+};
+
+export type ReservationHistoryResponse = {
+  status: string;
+  message: string;
+  code: number;
+  data: ReservationHistoryData;
+};
+
+export type ReservationHistoryData = {
+  studentNumber: string;
+  studentName: string;
+  reservationList: ReservationDetail[];
+};
+
+export type ReservationDetail = {
+  spaceId: number;
+  buildingName: string;
+  spaceDisplayName: string;
+  reservationId: number;
+  reservationDate: string;
+  reservationStartTime: string;
+  reservationEndTime: string;
+  studentGroup: string;
+  reservationPurpose: string;
+};
+
+export const reserveHistory = async (studentId: number, name: string) => {
+  const response = await apiClient.get(API.RESERVE.RESERVE_HISTORY, {
+    params: {
+      studentNumber: studentId,
+      studentName: name,
+    },
+  });
   return response.data;
 };

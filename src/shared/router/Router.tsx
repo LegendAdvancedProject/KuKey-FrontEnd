@@ -7,6 +7,7 @@ import KeyRegister from '../../pages/auth-ketRegister/AuthKeyRegister';
 import KonkukStudentReserveAuth from '../../pages/reserve/KonkukStudentReserveAuth';
 import EnterReserveInfo from '../../pages/reserve/EnterReserveInfo';
 import ReserveHistory from '../../pages/reserve/ReserveHistory';
+import ReserveAuth from '../../pages/reserve/ReserveAuth';
 
 const router = createBrowserRouter([
   {
@@ -35,11 +36,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/enter-reserve-info',
-    element: <EnterReserveInfo />
+    element: <EnterReserveInfo />,
   },
   {
     path: '/reserve-history',
     element: <ReserveHistory />,
+  },
+  {
+    path: 'reserve-auth',
+    element: <ReserveAuth />,
   },
 ]);
 

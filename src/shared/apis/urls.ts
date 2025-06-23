@@ -17,6 +17,7 @@ export const API = {
   },
   RESERVE: {
     FETCH_SPACE_RESERVATION_STATUS: '/spaces/reservation',
-    RESERVE_SPACE: (spaceId: number) => `reservations/${spaceId}`,
+    RESERVE_SPACE: (spaceId: number) => `/reservations/${spaceId}`,
+    RESERVE_HISTORY: '/reservations',
   },
 };

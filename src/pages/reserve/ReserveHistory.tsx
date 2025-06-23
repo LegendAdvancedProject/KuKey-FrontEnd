@@ -1,83 +1,87 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import Header2 from '../../shared/components/Header2';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CustomModal from '../../shared/components/CustomModal';
+import { useQuery } from '@tanstack/react-query';
+import { ReservationHistoryResponse, reserveHistory } from '../../shared/apis/user/reserve/reserve';
 
 const ReserveHistory = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { studentId, name } = location.state || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [data, setData] = useState({
-    studentId: '',
-    name: '',
-    place: '',
-    time: '',
-    organization: '',
-    purpose: '',
+  const { data, isLoading } = useQuery<ReservationHistoryResponse>({
+    queryKey: ['userReserveHistory', studentId, name],
+    queryFn: () => reserveHistory(studentId, name),
+    enabled: !!studentId && !!name,
   });
 
-  useEffect(() => {
-    // TODO: API 주소에 맞게 수정예정
-    axios
-      .get('/reservations?studentNumber=${studentId}&studentName=${name}')
-      .then((res) => setData(res.data))
-      .catch((err) => console.error(err));
-  }, []);
+  if (isLoading) return <div>로딩 중...</div>;
+  if (!data?.data) return <div>데이터가 없습니다.</div>;
+
+  const { studentNumber, studentName, reservationList } = data.data;
 
   return (
-    <div className="space-y-[30px]">
+    <div className="max-h-screen overflow-y-auto space-y-[30px]">
       <Header2 headerContent="예약조회" />
-      <div className="w-full px-4 py-6">
+      <div className="w-full px-4">
         {/* 학생정보 박스 */}
-        <div className="mb-2 pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
-          학생정보
-        </div>
-        <div className="flex h-[47px] flex-col items-center justify-center gap-[10px] rounded-[8px] bg-white px-[28px]">
-          <div className="flex items-center gap-[67px]">
-            <div className="flex flex-col items-start">
-              <span className="text-[12px] leading-[16px] font-[600] text-[#217446]">학번</span>
-              <span className="text-[16px] leading-[16px] font-[600] text-black">
-                {data.studentId}
-              </span>
+        <div className="mb-2 pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">학생정보</div>
+        <div className="flex h-[47px] items-center justify-center gap-[10px] rounded-[8px] bg-white px-[28px]">
+          <div className="flex items-center gap-[80px]">
+            <div className="flex items-start gap-[15px]">
+              <span className="text-[12px] font-[600] text-[#217446]">학번</span>
+              <span className="text-[16px] font-[600] text-black">{studentNumber}</span>
             </div>
-            <div className="flex flex-col items-start">
-              <span className="text-[12px] leading-[16px] font-[600] text-[#217446]">이름</span>
-              <span className="text-[16px] leading-[16px] font-[600] text-black">{data.name}</span>
+            <div className="flex items-start gap-[15px]">
+              <span className="text-[12px] font-[600] text-[#217446]">이름</span>
+              <span className="text-[16px] font-[600] text-black">{studentName}</span>
             </div>
           </div>
         </div>
 
-        {/* 정보 항목들 */}
-        <div className="mt-6 flex flex-col gap-4">
-          {[
-            { label: '장소', value: data.place },
-            { label: '시간', value: data.time },
-            { label: '소속단체', value: data.organization },
-          ].map(({ label, value }) => (
-            <div key={label}>
-              <div className="mb-2 pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
-                {label}
+        {/* 예약 내역들 */}
+        <div className="mt-6 flex flex-col gap-6">
+          {reservationList.length === 0 ? (
+            <div className="flex h-[540px] items-center justify-center text-[16px] font-[500] text-gray-500">
+              예약 정보가 없습니다.
+            </div>
+          ) : (
+            reservationList.map((reservation) => (
+              <div
+                key={reservation.reservationId}
+                className="space-y-3 rounded-[12px] bg-white p-4 shadow-sm"
+              >
+                <div>
+                  <span className="text-[14px] font-bold text-[#464A4D]">장소</span>
+                  <div className="mt-1 text-[14px] font-[500] text-gray-500">{reservation.spaceDisplayName}</div>
+                </div>
+                <div>
+                  <span className="text-[14px] font-bold text-[#464A4D]">시간</span>
+                  <div className="mt-1 text-[14px] font-[500] text-gray-500">
+                    {reservation.reservationDate} / {reservation.reservationStartTime.slice(0, 5)} -{' '}
+                    {reservation.reservationEndTime.slice(0, 5)}
+                  </div>
+                </div>
+                <div>
+                  <span className="text-[14px] font-bold text-[#464A4D]">소속단체</span>
+                  <div className="mt-1 text-[14px] font-[500] text-gray-500">{reservation.studentGroup}</div>
+                </div>
+                <div>
+                  <span className="text-[14px] font-bold text-[#464A4D]">사용 목적</span>
+                  <div className="mt-1 whitespace-pre-wrap text-[14px] text-gray-500 font-[500]">
+                    {reservation.reservationPurpose}
+                  </div>
+                </div>
               </div>
-              <div className="flex h-[46px] w-[358px] items-start gap-[10px] rounded-[8px] bg-white px-[14px] py-[10px]">
-                {value}
-              </div>
-            </div>
-          ))}
-
-          {/* 사용목적 */}
-          <div>
-            <div className="mb-2 pl-[2px] text-[14px] leading-[20px] font-bold text-[#464A4D]">
-              사용목적
-            </div>
-            <div className="flex h-[92px] w-[358px] items-start gap-[10px] rounded-[8px] bg-white px-[14px] py-[10px]">
-              {data.purpose}
-            </div>
-          </div>
+            ))
+          )}
         </div>
       </div>
+
       {/* 하단 버튼 */}
-      <div className="mx-auto flex w-[360px] justify-between space-x-4">
+      <div className="mx-auto mb-[15px] flex w-[360px] justify-between space-x-4">
         <button
           onClick={() => setIsModalOpen(true)}
           className="h-[48px] w-[171px] rounded-[10px] bg-[#ECECEC] py-2 text-[16px] font-[600] text-[#929292]"
@@ -85,19 +89,20 @@ const ReserveHistory = () => {
           예약취소
         </button>
         <button
-          onClick={() => navigate('/admin')}
+          onClick={() => navigate('/')}
           className="h-[48px] w-[171px] rounded-[10px] bg-[#217446] py-2 text-[16px] font-[600] text-white"
         >
           확인
         </button>
       </div>
+
       <CustomModal
         isOpen={isModalOpen}
         content="예약을 취소하시겠습니까?"
         onClose={() => setIsModalOpen(false)}
         onConfirm={() => {
           console.log('예약 취소 확정!');
-          // TODO: 여기에 예약취소 API 요청 추가
+          // TODO: 예약취소 API 요청 추가
         }}
       />
     </div>
