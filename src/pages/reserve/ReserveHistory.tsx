@@ -83,13 +83,13 @@ const ReserveHistory = () => {
       </div>
 
       {/* 하단 버튼 */}
-      <div className="mx-auto mb-[15px] flex w-[360px] justify-between space-x-4">
-        <button
+      <div className="mx-auto mb-[15px] justify-center flex w-[360px] space-x-4">
+        {/* <button
           onClick={() => setIsModalOpen(true)}
           className="h-[48px] w-[171px] rounded-[10px] bg-[#ECECEC] py-2 text-[16px] font-[600] text-[#929292]"
         >
           예약취소
-        </button>
+        </button> */}
         <button
           onClick={() => navigate('/')}
           className="h-[48px] w-[171px] rounded-[10px] bg-[#217446] py-2 text-[16px] font-[600] text-white"
