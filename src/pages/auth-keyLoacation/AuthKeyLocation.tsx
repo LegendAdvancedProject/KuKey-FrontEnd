@@ -20,11 +20,6 @@ const KeyLocationPage = () => {
     loadKeyInfo();
   }, [selectedBuilding]);
 
-  // 버튼 클릭 핸들러
-  const handleClick = (label: string) => {
-    console.log(`${label} 클릭!`);
-  };
-
   return (
     <div className="flex flex-col items-center space-y-6 px-4 py-6 text-sm">
       {/* 건물 버튼 */}
@@ -45,7 +40,7 @@ const KeyLocationPage = () => {
       </div>
 
       {/* 카드키 사진 + 설명 영역 */}
-      <div className="flex justify-center space-x-4">
+      <div className="flex-col justify-center space-x-4">
         <div className="flex h-[180px] w-[140px] items-center justify-center rounded border text-lg font-bold">
           {keyInfo?.imageUrl ? (
             <img
@@ -75,19 +70,6 @@ const KeyLocationPage = () => {
         >
           기록 추가
         </button>
-      </div>
-
-      {/* 하단 메뉴 버튼 */}
-      <div className="flex w-full justify-between space-x-2 pt-4">
-        {['개방관리', '키 관리'].map((label) => (
-          <button
-            key={label}
-            className="w-full cursor-pointer rounded border border-green-800 py-1 font-semibold text-green-800 hover:bg-green-800 hover:text-white"
-            onClick={() => handleClick(label)}
-          >
-            {label}
-          </button>
-        ))}
       </div>
     </div>
   );
