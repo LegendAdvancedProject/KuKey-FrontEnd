@@ -84,7 +84,7 @@ const KeyLocationPage = () => {
 
       {/* 하단 메뉴 버튼 */}
       <div className="flex w-full justify-between space-x-2 pt-4">
-        {['개방관리', '키 관리', '로그아웃'].map((label) => (
+        {['개방관리', '키 관리'].map((label) => (
           <button
             key={label}
             className="w-full cursor-pointer rounded border border-green-800 py-1 font-semibold text-green-800 hover:bg-green-800 hover:text-white"
