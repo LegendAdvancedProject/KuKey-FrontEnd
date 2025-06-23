@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
-import { format } from 'date-fns';
+import { addMonths, format } from 'date-fns';
 import Dropdown from './components/Dropdown';
 import {
   fetchSpaceReserveStatus,
   ReservationResponse,
 } from '../../shared/apis/user/reserve/reserve';
 import { useQuery } from '@tanstack/react-query';
+import CustomModal from '../../shared/components/CustomModal';
 
 const roomOptions = [
   { label: '과방1', value: '과방1' },
@@ -20,8 +21,14 @@ const roomOptions = [
 
 // 시설예약 탭
 const Reserve = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+  const [modalConfirmHandler, setModalConfirmHandler] = useState<() => void>(() => () => {});
+  const [showCancelButton, setShowCancelButton] = useState(true);
+
   const today = new Date();
   const formattedToday = format(today, 'yyyy-MM-dd');
+  const oneMonthLater = addMonths(today, 1);
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(today);
   const [formattedDate, setFormattedDate] = useState(formattedToday);
@@ -58,6 +65,25 @@ const Reserve = () => {
 
   // 선택 토글 함수
   const toggleTime = (time: string) => {
+    const isToday = (date: Date | null) => {
+      if (!date) return false;
+      const now = new Date();
+      return (
+        now.getFullYear() === date.getFullYear() &&
+        now.getMonth() === date.getMonth() &&
+        now.getDate() === date.getDate()
+      );
+    };
+
+    if (isToday(selectedDate)) {
+      setModalContent('당일 예약은 불가능합니다.');
+      setModalConfirmHandler(() => () => setIsModalOpen(false));
+      setShowCancelButton(false);
+      setIsModalOpen(true);
+      return;
+    }
+
+    // 기존 로직 유지
     if (selectedTimes.includes(time)) {
       const newTimes = selectedTimes.filter((t) => t !== time);
       setSelectedTimes(newTimes);
@@ -75,7 +101,10 @@ const Reserve = () => {
     }
 
     if (selectedTimes.length >= 2) {
-      alert('최대 2시간까지 선택 가능합니다.');
+      setModalContent('최대 2시간까지 예약 가능합니다.');
+      setModalConfirmHandler(() => () => setIsModalOpen(false));
+      setShowCancelButton(false);
+      setIsModalOpen(true);
       return;
     }
 
@@ -86,7 +115,10 @@ const Reserve = () => {
       const h1 = parseInt(t1.split(':')[0]);
       const h2 = parseInt(t2.split(':')[0]);
       if (h2 - h1 !== 1) {
-        alert('연속된 시간만 선택할 수 있습니다.');
+        setModalContent('연속된 시간만 선택 가능합니다.');
+        setModalConfirmHandler(() => () => setIsModalOpen(false));
+        setShowCancelButton(false);
+        setIsModalOpen(true);
         return;
       }
     }
@@ -107,7 +139,6 @@ const Reserve = () => {
 
     return target.unavailableReservationTimeList.some((t) => {
       const result = time >= t.startTime && time < t.endTime;
-      console.log(`${time} >= ${t.startTime} && ${time} < ${t.endTime} → ${result}`);
       return result;
     });
   };
@@ -144,18 +175,34 @@ const Reserve = () => {
 
       <div className="flex w-full flex-col items-start">
         <span className="mb-[10px] text-[14px] font-[600]">예약 날짜</span>
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          dateFormat="yyyy. MM. dd"
-          className="w-full rounded-[10px] bg-white py-[10px] pl-[18px] text-[18px] font-[500]"
-          wrapperClassName="w-full"
-        />
+        <div className="relative w-full">
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            dateFormat="yyyy. MM. dd"
+            minDate={today}
+            maxDate={oneMonthLater}
+            className="w-full rounded-[10px] bg-white py-[14px] pl-[20px] text-[18px] font-[500]" // 여기는 입력창
+            wrapperClassName="w-full"
+          />
+          <img
+            src="/chevron-down.svg"
+            alt="펼쳐보기"
+            className="absolute top-1/2 right-[10px] -translate-y-1/2"
+          />
+        </div>
       </div>
 
       <div className="mt-[17px] flex w-full flex-col items-start">
         <span className="mb-[10px] text-[14px] font-[600]">예약 공간</span>
-        <Dropdown options={roomOptions} selected={selectedRoom} onSelect={setSelectedRoom} />
+        <div className="relative w-full">
+          <Dropdown options={roomOptions} selected={selectedRoom} onSelect={setSelectedRoom} />
+          <img
+            src="/chevron-down.svg"
+            alt="펼쳐보기"
+            className="absolute top-1/2 right-[10px] -translate-y-1/2"
+          />
+        </div>
       </div>
 
       <div className="mt-[17px] flex w-full flex-col items-start">
@@ -198,6 +245,14 @@ const Reserve = () => {
       >
         예약하기
       </button>
+
+      <CustomModal
+        isOpen={isModalOpen}
+        content={modalContent}
+        onClose={modalConfirmHandler}
+        onConfirm={modalConfirmHandler}
+        showCancelButton={showCancelButton}
+      />
     </div>
   );
 };

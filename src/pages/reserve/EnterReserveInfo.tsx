@@ -3,6 +3,7 @@ import Header2 from '../../shared/components/Header2';
 import UserInput from '../../shared/components/UserInput';
 import { useSpaceReserveForm } from './hooks/useSpaceReserveForm';
 import { useReserveSpace } from './hooks/useReserveSpace';
+import CustomModal from '../../shared/components/CustomModal';
 
 const EnterReserveInfo = () => {
   const location = useLocation();
@@ -16,18 +17,19 @@ const EnterReserveInfo = () => {
 
   const { register, handleSubmit, studentId, name, group, purpose } = useSpaceReserveForm();
 
-  const { reserveSpaceMutation } = useReserveSpace();
+  const { isModalOpen, modalConfirmHandler, modalContent, showCancelButton, reserveSpaceMutation } =
+    useReserveSpace();
 
   const onSubmitSpaceReserveForm = () => {
     reserveSpaceMutation({
       spaceId: spaceId,
-      reservationDate: date, 
-      reservationStartTime: startTime, 
-      reservationEndTime: endTime, 
-      studentNumber: String(studentId), 
-      studentName: name, 
-      studentGroup: group, 
-      reservationPurpose: purpose, 
+      reservationDate: date,
+      reservationStartTime: startTime,
+      reservationEndTime: endTime,
+      studentNumber: String(studentId),
+      studentName: name,
+      studentGroup: group,
+      reservationPurpose: purpose,
     });
   };
 
@@ -103,6 +105,14 @@ const EnterReserveInfo = () => {
           </form>
         </div>
       </div>
+
+      <CustomModal
+        isOpen={isModalOpen}
+        content={modalContent}
+        onClose={modalConfirmHandler}
+        onConfirm={modalConfirmHandler}
+        showCancelButton={showCancelButton}
+      />
     </div>
   );
 };

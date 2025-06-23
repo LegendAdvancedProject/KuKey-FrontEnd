@@ -1,8 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 import { reserveSpace } from '../../../shared/apis/user/reserve/reserve';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
 export const useReserveSpace = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+  const [modalConfirmHandler, setModalConfirmHandler] = useState<() => void>(() => () => {});
+  const [showCancelButton, setShowCancelButton] = useState(true);
+
   const navigate = useNavigate();
   const { mutate: reserveSpaceMutation } = useMutation({
     mutationFn: ({
@@ -36,16 +42,26 @@ export const useReserveSpace = () => {
       ),
     onSuccess: (data) => {
       if (data.code == 200) {
-        console.log('예약 성공');
-        navigate('/');
+        setModalContent('예약이 완료되었습니다');
+        setModalConfirmHandler(() => () => {
+          navigate('/');
+          setIsModalOpen(false);
+        });
+        setShowCancelButton(false);
+        setIsModalOpen(true);
       } else {
-        console.log(data);
+        setModalContent(data.message);
+        setModalConfirmHandler(() => () => {
+          setIsModalOpen(false);
+        });
+        setShowCancelButton(false);
+        setIsModalOpen(true);
       }
     },
-    onError: () => {
-      console.log('실패2');
+    onError: (error) => {
+      console.log(error);
     },
   });
 
-  return { reserveSpaceMutation };
+  return { isModalOpen, modalContent, modalConfirmHandler, showCancelButton, reserveSpaceMutation };
 };
