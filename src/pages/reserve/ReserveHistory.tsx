@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header2 from '../../shared/components/Header2';
 import { useNavigate } from 'react-router-dom';
+import CustomModal from '../../shared/components/CustomModal';
 
 const ReserveHistory = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [data, setData] = useState({
     studentId: '',
@@ -18,7 +20,7 @@ const ReserveHistory = () => {
   useEffect(() => {
     // TODO: API 주소에 맞게 수정예정
     axios
-      .get('/api/reservation')
+      .get('/reservations?studentNumber=${studentId}&studentName=${name}')
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -77,7 +79,7 @@ const ReserveHistory = () => {
       {/* 하단 버튼 */}
       <div className="mx-auto flex w-[360px] justify-between space-x-4">
         <button
-          onClick={() => console.log('예약취소 버튼 클릭!!')}
+          onClick={() => setIsModalOpen(true)}
           className="h-[48px] w-[171px] rounded-[10px] bg-[#ECECEC] py-2 text-[16px] font-[600] text-[#929292]"
         >
           예약취소
@@ -89,6 +91,15 @@ const ReserveHistory = () => {
           확인
         </button>
       </div>
+      <CustomModal
+        isOpen={isModalOpen}
+        content="예약을 취소하시겠습니까?"
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={() => {
+          console.log('예약 취소 확정!');
+          // TODO: 여기에 예약취소 API 요청 추가
+        }}
+      />
     </div>
   );
 };
