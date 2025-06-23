@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { requestAuthCode, verifyAuthCode, saveAuthInfo } from '../../../shared/apis/user/auth/auth';
+import { requestAuthCode, verifyAuthCode } from '../../../shared/apis/user/auth/auth';
 import { requestSpaceOpen } from '../../../shared/apis/user/open-request/openRequest';
 import { USER_ACCESS_TOKEN } from '../../../shared/constants/storageKey';
 import { useNavigate } from 'react-router';
@@ -84,29 +84,29 @@ export const useEmailAuthRequest = () => {
   });
 
   // 인증정보 저장
-  const { mutate: saveAuthInfoMutation } = useMutation({
-    mutationFn: ({ userEmail }: { userEmail: string; spaceId: number }) => saveAuthInfo(userEmail),
-    onSuccess: (data, variables) => {
-      if (data.code === 200) {
-        localStorage.setItem(USER_ACCESS_TOKEN, String(data.data.accessToken));
-        requestSpaceOpenMutation(variables.spaceId);
-        setModalContent('개방이 요청되었습니다');
-        setModalConfirmHandler(() => () => {
-          setIsModalOpen(false);
-          navigate('/');
-        });
-        setShowCancelButton(false);
-        setIsModalOpen(true);
-      } else {
-        setModalContent('인증정보 저장 실패');
-        setModalConfirmHandler(() => () => {
-          setIsModalOpen(false);
-        });
-        setShowCancelButton(false);
-        setIsModalOpen(true);
-      }
-    },
-  });
+  // const { mutate: saveAuthInfoMutation } = useMutation({
+  //   mutationFn: ({ userEmail }: { userEmail: string; spaceId: number }) => saveAuthInfo(userEmail),
+  //   onSuccess: (data, variables) => {
+  //     if (data.code === 200) {
+  //       localStorage.setItem(USER_ACCESS_TOKEN, String(data.data.accessToken));
+  //       requestSpaceOpenMutation(variables.spaceId);
+  //       setModalContent('개방이 요청되었습니다');
+  //       setModalConfirmHandler(() => () => {
+  //         setIsModalOpen(false);
+  //         navigate('/');
+  //       });
+  //       setShowCancelButton(false);
+  //       setIsModalOpen(true);
+  //     } else {
+  //       setModalContent('인증정보 저장 실패');
+  //       setModalConfirmHandler(() => () => {
+  //         setIsModalOpen(false);
+  //       });
+  //       setShowCancelButton(false);
+  //       setIsModalOpen(true);
+  //     }
+  //   },
+  // });
 
   // 개방 요청
   const { mutate: requestSpaceOpenMutation } = useMutation({
@@ -125,5 +125,6 @@ export const useEmailAuthRequest = () => {
     showCancelButton,
     requestAuthCodeMutation,
     verifyAuthMutation,
+    setModalCloseHandler,
   };
 };
