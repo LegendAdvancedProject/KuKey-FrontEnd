@@ -10,10 +10,13 @@ export const API = {
   },
   SPACES: {
     FETCH_SPACE_OPEN_STATUS: '/spaces/open',
-    FETCH_SPACE_RESERVATION_STATUS: '/spaces/reservation',
   },
   ADMIN: {
     FETCH_SPACE_OPEN_STATUS: '/admin/spaces',
     OPEN_SPACE: (spaceId: number) => `/admin/open-change/${spaceId}`,
+  },
+  RESERVE: {
+    FETCH_SPACE_RESERVATION_STATUS: '/spaces/reservation',
+    RESERVE_SPACE: (spaceId: number) => `reservations/${spaceId}`,
   },
 };
