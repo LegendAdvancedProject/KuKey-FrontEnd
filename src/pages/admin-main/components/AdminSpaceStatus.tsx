@@ -47,9 +47,9 @@ const AdminSpaceStatus = ({
     buttonBgColor = 'bg-[#217446]';
     img = '/locked.svg';
   } else if (requestOrReservedStatus === REQUEST_OR_RESERVATION_STATUS.ING) {
-    buttonText = '이용 중';
+    buttonText = '이용 가능';
     buttonTextColor = 'text-white';
-    buttonBgColor = 'bg-yellow-400';
+    buttonBgColor = 'bg-blue-400';
     img = '/open.svg';
   }
 

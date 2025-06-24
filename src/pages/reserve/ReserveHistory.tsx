@@ -100,7 +100,7 @@ const ReserveHistory = () => {
                   </div>
                 </div>
                 <div className="flex justify-end">
-                  <span className="text-[13px] font-[600] text-red-500">예약 삭제하기</span>
+                  <span className="text-[13px] font-[600] text-red-500">예약 취소하기</span>
                 </div>
               </button>
             ))
